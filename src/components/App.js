@@ -144,11 +144,13 @@ export default class App extends React.Component {
       main = (
         <section className="main">
           <input
+            id="toggle-all"
             className="toggle-all"
             type="checkbox"
             onChange={this.toggleAll}
             checked={activeTodoCount === 0}
           />
+          <label htmlFor="toggle-all"></label>
           <ul className="todo-list">
             {todoItems}
           </ul>
@@ -158,19 +160,27 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <header className="header">
-          <h1>todos</h1>
-          <input
-            className="new-todo"
-            placeholder="What needs to be done?"
-            value={this.state.newTodo}
-            onKeyDown={this.handleNewTodoKeyDown}
-            onChange={this.handleChange}
-            autoFocus={true}
-          />
-        </header>
-        {main}
-        {footer}
+        <div class="todoapp">
+          <header className="header">
+            <h1>todos</h1>
+            <input
+              className="new-todo"
+              placeholder="What needs to be done?"
+              value={this.state.newTodo}
+              onKeyDown={this.handleNewTodoKeyDown}
+              onChange={this.handleChange}
+              autoFocus={true}
+            />
+          </header>
+          {main}
+          {footer}
+        </div>
+        <footer class="info">
+          <p>Double-click to edit a todo</p>
+          <p>Created by <a href="http://github.com/petehunt/">petehunt</a></p>
+          <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+          <p>Forked by <a href="https://github.com/infctr">infctr</a></p>
+        </footer>
       </div>
     );
   }

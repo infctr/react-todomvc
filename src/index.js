@@ -6,5 +6,5 @@ import '../node_modules/todomvc-app-css/index.css';
 
 ReactDOM.render(
   <App storageKey="react-todomvc" />,
-  document.getElementById('todoapp')
+  document.getElementById('root')
 );
