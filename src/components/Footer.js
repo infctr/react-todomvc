@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import classNames from 'classnames';
 import { pluralize } from '../utils/index.js';
 import itemTypes from '../constants/itemTypes';
@@ -9,8 +10,8 @@ const Footer = ({
   nowShowing,
   onClearCompleted = () => {},
 }) => {
-  var activeTodoWord = pluralize(count, 'item');
-  var clearButton = null;
+  let clearButton = null;
+  const activeTodoWord = pluralize(count, 'item');
 
   if (completedCount > 0) {
     clearButton = (
@@ -27,31 +28,31 @@ const Footer = ({
       </span>
       <ul className="filters">
         <li>
-          <a
-            href="#/"
+          <Link
+            to="/"
             className={classNames({
               selected: nowShowing === itemTypes.ALL_TODOS,
             })}>
             All
-          </a>
+          </Link>
         </li>{' '}
         <li>
-          <a
-            href="#/active"
+          <Link
+            to="/active"
             className={classNames({
               selected: nowShowing === itemTypes.ACTIVE_TODOS,
             })}>
             Active
-          </a>
+          </Link>
         </li>{' '}
         <li>
-          <a
-            href="#/completed"
+          <Link
+            to="/completed"
             className={classNames({
               selected: nowShowing === itemTypes.COMPLETED_TODOS,
             })}>
             Completed
-          </a>
+          </Link>
         </li>
       </ul>
       {clearButton}

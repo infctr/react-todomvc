@@ -2,13 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import codeKeys from '../constants/codeKeys';
+import PropTypes from 'prop-types';
 
 export default class Todo extends React.Component {
+  static propTypes = {
+    onSave: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onToggle: PropTypes.func.isRequired,
+    todo: PropTypes.object.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
     this.state = {
-      editText: this.props.todo.title,
+      editText: props.todo.title,
     };
   }
 
@@ -75,21 +85,23 @@ export default class Todo extends React.Component {
   }
 
   render() {
+    const { todo, editing, onToggle, onRemove } = this.props;
+
     return (
       <li
         className={classNames({
-          completed: this.props.todo.completed,
-          editing: this.props.editing,
+          completed: todo.completed,
+          editing: editing,
         })}>
         <div className="view">
           <input
             className="toggle"
             type="checkbox"
-            checked={this.props.todo.completed}
-            onChange={this.props.onToggle}
+            checked={todo.completed}
+            onChange={onToggle}
           />
-          <label onDoubleClick={this.handleEdit}>{this.props.todo.title}</label>
-          <button className="destroy" onClick={this.props.onRemove} />
+          <label onDoubleClick={this.handleEdit}>{todo.title}</label>
+          <button className="destroy" onClick={onRemove} />
         </div>
         <input
           ref="editField"

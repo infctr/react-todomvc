@@ -6,13 +6,27 @@ import itemTypes from '../constants/itemTypes';
 import codeKeys from '../constants/codeKeys';
 import {store} from '../utils/index';
 
+function getFilterRouteType(route) {
+  switch (route) {
+    case 'active':
+      return itemTypes.ACTIVE_TODOS;
+
+    case 'completed':
+      return itemTypes.COMPLETED_TODOS;
+
+    default:
+      return itemTypes.ALL_TODOS;
+  }
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.storageKey = props.route.storageKey;
     this.state = {
-      todos: store(props.storageKey) || [],
-      nowShowing: itemTypes.ALL_TODOS,
+      todos: store(this.storageKey) || [],
+      nowShowing: getFilterRouteType(props.params.filterRoute),
       editing: null,
       newTodo: ''
     };
@@ -90,8 +104,15 @@ export default class App extends React.Component {
     }));
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      nowShowing: getFilterRouteType(nextProps.params.filterRoute),
+    })
+  }
+
   render() {
-    store(this.props.storageKey, this.state.todos);
+    store(this.storageKey, this.state.todos);
+    console.log('render');
 
     let footer, main;
     const {nowShowing, todos} = this.state;
@@ -160,7 +181,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <div class="todoapp">
+        <div className="todoapp">
           <header className="header">
             <h1>todos</h1>
             <input
@@ -175,7 +196,7 @@ export default class App extends React.Component {
           {main}
           {footer}
         </div>
-        <footer class="info">
+        <footer className="info">
           <p>Double-click to edit a todo</p>
           <p>Created by <a href="http://github.com/petehunt/">petehunt</a></p>
           <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
