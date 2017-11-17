@@ -4,14 +4,14 @@ import Todo from './Todo';
 import Footer from './Footer';
 import itemTypes from '../constants/itemTypes';
 import codeKeys from '../constants/codeKeys';
-import {store} from '../utils/index';
+import { store } from '../utils/index';
 
 function getFilterRouteType(route) {
   switch (route) {
-    case 'active':
+    case '/active':
       return itemTypes.ACTIVE_TODOS;
 
-    case 'completed':
+    case '/completed':
       return itemTypes.COMPLETED_TODOS;
 
     default:
@@ -21,22 +21,24 @@ function getFilterRouteType(route) {
 
 export default class App extends React.Component {
   constructor(props) {
+    const { location } = props;
+
     super(props);
 
-    this.storageKey = props.route.storageKey;
+    this.storageKey = props.storageKey;
     this.state = {
       todos: store(this.storageKey) || [],
-      nowShowing: getFilterRouteType(props.params.filterRoute),
+      nowShowing: getFilterRouteType(location.pathname),
       editing: null,
-      newTodo: ''
+      newTodo: '',
     };
   }
 
-  handleChange = (event) => {
-    this.setState({newTodo: event.target.value});
-  }
+  handleChange = event => {
+    this.setState({ newTodo: event.target.value });
+  };
 
-  handleNewTodoKeyDown = (event) => {
+  handleNewTodoKeyDown = event => {
     if (event.keyCode !== codeKeys.ENTER_KEY) {
       return;
     }
@@ -46,78 +48,83 @@ export default class App extends React.Component {
     const val = this.state.newTodo.trim();
 
     if (val) {
-      this.setState(({todos}) => ({
-        todos: [...todos, {
-          id: uuid.v4(),
-          title: val,
-          completed: false
-        }],
-        newTodo: ''
+      this.setState(({ todos }) => ({
+        todos: [
+          ...todos,
+          {
+            id: uuid.v4(),
+            title: val,
+            completed: false,
+          },
+        ],
+        newTodo: '',
       }));
     }
-  }
+  };
 
-  toggleAll = (event) => {
+  toggleAll = event => {
     const checked = event.target.checked;
 
-    this.setState(({todos}) => ({
-      todos: todos.map(todo => Object.assign({}, todo, {completed: checked}))
+    this.setState(({ todos }) => ({
+      todos: todos.map(todo => Object.assign({}, todo, { completed: checked })),
     }));
-  }
+  };
 
-  toggle = (todoToToggle) => {
-    this.setState(({todos}) => ({
+  toggle = todoToToggle => {
+    this.setState(({ todos }) => ({
       todos: todos.map(todo => {
-        return todo !== todoToToggle ?
-          todo :
-          Object.assign({}, todo, {completed: !todo.completed});
-      })
+        return todo !== todoToToggle
+          ? todo
+          : Object.assign({}, todo, { completed: !todo.completed });
+      }),
     }));
-  }
+  };
 
-  remove = (todo) => {
-    this.setState(({todos}) => ({
-      todos: todos.filter(candidate => candidate !== todo)
+  remove = todo => {
+    this.setState(({ todos }) => ({
+      todos: todos.filter(candidate => candidate !== todo),
     }));
-  }
+  };
 
-  edit = (todo) => {
-    this.setState({editing: todo.id});
-  }
+  edit = todo => {
+    this.setState({ editing: todo.id });
+  };
 
   save = (todoToSave, text) => {
-    this.setState(({todos}) => ({
-      todos: todos.map(todo => (
-        todo !== todoToSave ? todo : Object.assign({}, todo, {title: text})
-      )),
-      editing: null
+    this.setState(({ todos }) => ({
+      todos: todos.map(
+        todo =>
+          todo !== todoToSave ? todo : Object.assign({}, todo, { title: text })
+      ),
+      editing: null,
     }));
-  }
+  };
 
   cancel = () => {
-    this.setState({editing: null});
-  }
+    this.setState({ editing: null });
+  };
 
   clearCompleted = () => {
-    this.setState(({todos}) => ({
-      todos: todos.filter(todo => !todo.completed)
+    this.setState(({ todos }) => ({
+      todos: todos.filter(todo => !todo.completed),
     }));
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
+    const { location } = nextProps;
+
     this.setState({
-      nowShowing: getFilterRouteType(nextProps.params.filterRoute),
-    })
+      nowShowing: getFilterRouteType(location.pathname),
+    });
   }
 
   render() {
     store(this.storageKey, this.state.todos);
-    console.log('render');
 
     let footer, main;
-    const {nowShowing, todos} = this.state;
+    const { nowShowing, todos } = this.state;
 
-    const shownTodos = todos.filter(function (todo) {
+    const shownTodos = todos.filter(function(todo) {
       switch (nowShowing) {
         case itemTypes.ACTIVE_TODOS:
           return !todo.completed;
@@ -130,7 +137,7 @@ export default class App extends React.Component {
       }
     }, this);
 
-    const todoItems = shownTodos.map(function (todo) {
+    const todoItems = shownTodos.map(function(todo) {
       return (
         <Todo
           key={todo.id}
@@ -145,20 +152,21 @@ export default class App extends React.Component {
       );
     }, this);
 
-    const activeTodoCount = todos.reduce(function (accum, todo) {
+    const activeTodoCount = todos.reduce(function(accum, todo) {
       return todo.completed ? accum : accum + 1;
     }, 0);
 
     const completedCount = todos.length - activeTodoCount;
 
     if (activeTodoCount || completedCount) {
-      footer =
+      footer = (
         <Footer
           count={activeTodoCount}
           completedCount={completedCount}
           nowShowing={nowShowing}
           onClearCompleted={this.clearCompleted}
-        />;
+        />
+      );
     }
 
     if (todos.length) {
@@ -171,10 +179,8 @@ export default class App extends React.Component {
             onChange={this.toggleAll}
             checked={activeTodoCount === 0}
           />
-          <label htmlFor="toggle-all"></label>
-          <ul className="todo-list">
-            {todoItems}
-          </ul>
+          <label htmlFor="toggle-all" />
+          <ul className="todo-list">{todoItems}</ul>
         </section>
       );
     }
@@ -198,21 +204,17 @@ export default class App extends React.Component {
         </div>
         <footer className="info">
           <p>Double-click to edit a todo</p>
-          <p>Created by <a href="http://github.com/petehunt/">petehunt</a></p>
-          <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-          <p>Forked by <a href="https://github.com/infctr">infctr</a></p>
+          <p>
+            Created by <a href="http://github.com/petehunt/">petehunt</a>
+          </p>
+          <p>
+            Part of <a href="http://todomvc.com">TodoMVC</a>
+          </p>
+          <p>
+            Forked by <a href="https://github.com/infctr">infctr</a>
+          </p>
         </footer>
       </div>
     );
-  }
-
-  componentDidMount() {
-    // var setState = this.setState;
-    // var router = Router({
-    //   '/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
-    //   '/active': setState.bind(this, {nowShowing: app.ACTIVE_TODOS}),
-    //   '/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
-    // });
-    // router.init('/');
   }
 }
