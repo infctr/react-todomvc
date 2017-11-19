@@ -79,7 +79,8 @@ export default class Todo extends React.Component {
    */
   componentDidUpdate(prevProps) {
     if (!prevProps.editing && this.props.editing) {
-      var node = ReactDOM.findDOMNode(this.refs.editField);
+      const node = ReactDOM.findDOMNode(this.refs.editField);
+
       node.focus();
       node.setSelectionRange(node.value.length, node.value.length);
     }

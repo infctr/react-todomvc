@@ -1,14 +1,28 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { HashRouter, Route } from 'react-router-dom';
+// import { HashRouter, Route } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import TodoApp from './reducers';
+import { storage } from './utils';
+import throttle from 'lodash/throttle';
 
 import '../node_modules/todomvc-app-css/index.css';
 
-let store = createStore(TodoApp);
+const storageKey = 'react-todomvc';
+const persistedState = storage(storageKey);
+const store = createStore(TodoApp, persistedState);
+
+store.subscribe(
+  throttle(() => {
+    storage(storageKey, {
+      todos: store.getState().todos,
+      newTodo: store.getState().newTodo,
+    });
+  }),
+  1000
+);
 
 // <HashRouter>
 //   <Provider store={store}>
@@ -20,7 +34,7 @@ let store = createStore(TodoApp);
 // </HashRouter>,
 render(
   <Provider store={store}>
-    <App storageKey="react-todomvc2" />
+    <App />
   </Provider>,
   document.getElementById('root')
 );
