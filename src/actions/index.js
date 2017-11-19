@@ -4,6 +4,9 @@ import {
   SET_VISIBILITY_FILTER,
   CLEAR_COMPLETED,
   SET_NEW_TODO,
+  TOGGLE_ALL,
+  REMOVE_TODO,
+  EDIT_TODO,
 } from '../constants/actionTypes';
 
 /*
@@ -24,8 +27,30 @@ export const toggleTodo = id => {
   };
 };
 
+export const removeTodo = id => {
+  return {
+    type: REMOVE_TODO,
+    id,
+  };
+};
+
+export const editTodo = (id, title) => {
+  return {
+    type: EDIT_TODO,
+    id,
+    title,
+  };
+};
+
 export const clearCompleted = () => {
   return { type: CLEAR_COMPLETED };
+};
+
+export const toggleAll = checked => {
+  return {
+    type: TOGGLE_ALL,
+    checked,
+  };
 };
 
 export const setVisibilityFilter = filter => {

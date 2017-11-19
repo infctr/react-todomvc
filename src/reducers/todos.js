@@ -3,6 +3,9 @@ import {
   ADD_TODO,
   TOGGLE_TODO,
   CLEAR_COMPLETED,
+  TOGGLE_ALL,
+  REMOVE_TODO,
+  EDIT_TODO,
 } from '../constants/actionTypes';
 
 const todos = (state = [], action) => {
@@ -26,6 +29,21 @@ const todos = (state = [], action) => {
         }
         return todo;
       });
+
+    case REMOVE_TODO:
+      return state.filter(todo => todo.id !== action.id);
+
+    case TOGGLE_ALL:
+      return state.map(todo =>
+        Object.assign({}, todo, { completed: action.checked })
+      );
+
+    case EDIT_TODO:
+      let { id, title } = action;
+
+      return state.map(
+        todo => (todo.id === id ? Object.assign({}, todo, { title }) : todo)
+      );
 
     case CLEAR_COMPLETED:
       return state.filter(todo => !todo.completed);
