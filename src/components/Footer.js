@@ -1,13 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
 import { pluralize } from '../utils/index.js';
-import itemTypes from '../constants/itemTypes';
+import { VisibilityFilters } from '../constants/actionTypes';
+import LinkContainer from '../containers/LinkContainer';
 
 const Footer = ({
   count,
   completedCount,
-  nowShowing,
+  visibilityFilter,
   onClearCompleted = () => {},
 }) => {
   let clearButton = null;
@@ -27,33 +26,9 @@ const Footer = ({
         <strong>{count}</strong> {activeTodoWord} left
       </span>
       <ul className="filters">
-        <li>
-          <Link
-            to="/"
-            className={classNames({
-              selected: nowShowing === itemTypes.ALL_TODOS,
-            })}>
-            All
-          </Link>
-        </li>{' '}
-        <li>
-          <Link
-            to="/active"
-            className={classNames({
-              selected: nowShowing === itemTypes.ACTIVE_TODOS,
-            })}>
-            Active
-          </Link>
-        </li>{' '}
-        <li>
-          <Link
-            to="/completed"
-            className={classNames({
-              selected: nowShowing === itemTypes.COMPLETED_TODOS,
-            })}>
-            Completed
-          </Link>
-        </li>
+        {Object.values(VisibilityFilters).map(filter => (
+          <LinkContainer key={filter} filter={filter} />
+        ))}
       </ul>
       {clearButton}
     </footer>
