@@ -4,8 +4,8 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import TodoApp from './reducers';
-import { storage } from './utils';
+import TodoApp from './reducers/index';
+import { storage } from './utils/index';
 import throttle from 'lodash/throttle';
 
 import '../node_modules/todomvc-app-css/index.css';
@@ -20,8 +20,7 @@ store.subscribe(
       todos: store.getState().todos,
       newTodo: store.getState().newTodo,
     });
-  }),
-  1000
+  }, 1000)
 );
 
 // <HashRouter>

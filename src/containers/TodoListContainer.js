@@ -5,7 +5,7 @@ import {
   toggleAll,
   removeTodo,
   editTodo,
-} from '../actions';
+} from '../actions/index';
 import TodoList from '../components/TodoList';
 
 const getVisibleTodos = (todos, filter) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { pluralize } from '../utils/index.js';
+import { pluralize } from '../utils/index';
 import { VisibilityFilters } from '../constants/actionTypes';
 import LinkContainer from '../containers/LinkContainer';
 
