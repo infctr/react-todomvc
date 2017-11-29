@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Todo from './Todo';
 import Footer from './Footer';
 import PropTypes from 'prop-types';
@@ -80,10 +80,10 @@ export default class TodoList extends React.Component {
     }
 
     return (
-      <div>
+      <Fragment>
         {main}
         {footer}
-      </div>
+      </Fragment>
     );
   }
 }

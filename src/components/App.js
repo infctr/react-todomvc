@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import TodoListContainer from '../containers/TodoListContainer';
 import AddTodoContainer from '../containers/AddTodoContainer';
 
 const App = props => {
   return (
-    <div>
+    <Fragment>
       <div className="todoapp">
         <header className="header">
           <h1>todos</h1>
@@ -24,7 +24,7 @@ const App = props => {
           Forked by <a href="https://github.com/infctr">infctr</a>
         </p>
       </footer>
-    </div>
+    </Fragment>
   );
 };
 
