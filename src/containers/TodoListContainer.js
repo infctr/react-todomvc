@@ -7,6 +7,7 @@ import {
   editTodo,
 } from '../actions/index';
 import TodoList from '../components/TodoList';
+import { bindActionCreators } from 'redux';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -34,25 +35,17 @@ const mapStateToProps = ({ todos, visibilityFilter }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    toggleTodo: id => {
-      dispatch(toggleTodo(id));
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      toggleTodo,
+      clearCompleted,
+      toggleAll,
+      removeTodo,
+      editTodo,
     },
-    removeTodo: id => {
-      dispatch(removeTodo(id));
-    },
-    clearCompleted: () => {
-      dispatch(clearCompleted());
-    },
-    toggleAll: checked => {
-      dispatch(toggleAll(checked));
-    },
-    editTodo: (id, title) => {
-      dispatch(editTodo(id, title));
-    },
-  };
-};
+    dispatch
+  );
 
 const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(
   TodoList
