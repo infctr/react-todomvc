@@ -21,7 +21,7 @@ const todos = (state = [], action) => {
       ];
 
     case TOGGLE_TODO:
-      return state.map((todo, index) => {
+      return state.map(todo => {
         if (todo.id === action.id) {
           return Object.assign({}, todo, {
             completed: !todo.completed,
@@ -38,13 +38,13 @@ const todos = (state = [], action) => {
         Object.assign({}, todo, { completed: action.checked })
       );
 
-    case EDIT_TODO:
-      let { id, title } = action;
+    case EDIT_TODO: {
+      const { id, title } = action;
 
       return state.map(
         todo => (todo.id === id ? Object.assign({}, todo, { title }) : todo)
       );
-
+    }
     case CLEAR_COMPLETED:
       return state.filter(todo => !todo.completed);
 

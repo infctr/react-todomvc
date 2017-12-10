@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, PureComponent } from 'react';
 import Todo from './Todo';
 import Footer from './Footer';
 import PropTypes from 'prop-types';
 
-export default class TodoList extends React.Component {
+export default class TodoList extends PureComponent {
   static propTypes = {
     todos: PropTypes.arrayOf(
       PropTypes.shape({
@@ -12,6 +12,13 @@ export default class TodoList extends React.Component {
         title: PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
+    editTodo: PropTypes.func.isRequired,
+    clearCompleted: PropTypes.func.isRequired,
+    toggleAll: PropTypes.func.isRequired,
+    toggleTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
+    activeTodoCount: PropTypes.number.isRequired,
+    completedCount: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -22,13 +29,7 @@ export default class TodoList extends React.Component {
     };
   }
 
-  edit = id => {
-    this.setState({ editing: id });
-  };
-
-  cancel = () => {
-    this.setState({ editing: null });
-  };
+  edit = id => this.setState({ editing: id });
 
   save = (id, text) => {
     this.props.editTodo(id, text);
@@ -38,7 +39,8 @@ export default class TodoList extends React.Component {
 
   render() {
     const { todos, activeTodoCount, completedCount } = this.props;
-    let footer, main;
+    let footer;
+    let main;
 
     if (activeTodoCount || completedCount) {
       footer = (
@@ -69,9 +71,9 @@ export default class TodoList extends React.Component {
                 editing={this.state.editing === todo.id}
                 handleToggle={() => this.props.toggleTodo(todo.id)}
                 onRemove={() => this.props.removeTodo(todo.id)}
-                onEdit={this.edit.bind(this, todo.id)}
-                onCancel={this.cancel}
-                onSave={this.save.bind(this, todo.id)}
+                onEdit={() => this.edit(todo.id)}
+                onCancel={() => this.setState({ editing: null })}
+                onSave={() => this.save(todo.id)}
               />
             ))}
           </ul>

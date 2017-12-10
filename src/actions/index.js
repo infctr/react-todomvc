@@ -13,56 +13,40 @@ import {
  * action creators
  */
 
-export const addTodo = title => {
-  return {
-    type: ADD_TODO,
-    title,
-  };
-};
+export const addTodo = title => ({
+  type: ADD_TODO,
+  title,
+});
 
-export const toggleTodo = id => {
-  return {
-    type: TOGGLE_TODO,
-    id,
-  };
-};
+export const toggleTodo = id => ({
+  type: TOGGLE_TODO,
+  id,
+});
 
-export const removeTodo = id => {
-  return {
-    type: REMOVE_TODO,
-    id,
-  };
-};
+export const removeTodo = id => ({
+  type: REMOVE_TODO,
+  id,
+});
 
-export const editTodo = (id, title) => {
-  return {
-    type: EDIT_TODO,
-    id,
-    title,
-  };
-};
+export const editTodo = (id, title) => ({
+  type: EDIT_TODO,
+  id,
+  title,
+});
 
-export const clearCompleted = () => {
-  return { type: CLEAR_COMPLETED };
-};
+export const clearCompleted = () => ({ type: CLEAR_COMPLETED });
 
-export const toggleAll = checked => {
-  return {
-    type: TOGGLE_ALL,
-    checked,
-  };
-};
+export const toggleAll = checked => ({
+  type: TOGGLE_ALL,
+  checked,
+});
 
-export const setVisibilityFilter = filter => {
-  return {
-    type: SET_VISIBILITY_FILTER,
-    filter,
-  };
-};
+export const setVisibilityFilter = filter => ({
+  type: SET_VISIBILITY_FILTER,
+  filter,
+});
 
-export const setNewTodo = title => {
-  return {
-    type: SET_NEW_TODO,
-    title,
-  };
-};
+export const setNewTodo = title => ({
+  type: SET_NEW_TODO,
+  title,
+});

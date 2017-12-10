@@ -8,20 +8,16 @@ const VisibilityFilterCaptions = {
   SHOW_ACTIVE: 'Active',
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    active: ownProps.filter === state.visibilityFilter,
-    text: VisibilityFilterCaptions[ownProps.filter],
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  active: ownProps.filter === state.visibilityFilter,
+  text: VisibilityFilterCaptions[ownProps.filter],
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onClick: () => {
-      dispatch(setVisibilityFilter(ownProps.filter));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onClick: () => {
+    dispatch(setVisibilityFilter(ownProps.filter));
+  },
+});
 
 const LinkContainer = connect(mapStateToProps, mapDispatchToProps)(Link);
 

@@ -2,13 +2,9 @@ import React from 'react';
 import { pluralize } from '../utils/index';
 import { VisibilityFilters } from '../constants/actionTypes';
 import LinkContainer from '../containers/LinkContainer';
+import PropTypes from 'prop-types';
 
-const Footer = ({
-  count,
-  completedCount,
-  visibilityFilter,
-  onClearCompleted = () => {},
-}) => {
+const Footer = ({ count, completedCount, onClearCompleted }) => {
   let clearButton = null;
   const activeTodoWord = pluralize(count, 'item');
 
@@ -33,6 +29,16 @@ const Footer = ({
       {clearButton}
     </footer>
   );
+};
+
+Footer.propTypes = {
+  count: PropTypes.number.isRequired,
+  completedCount: PropTypes.number.isRequired,
+  onClearCompleted: PropTypes.func,
+};
+
+Footer.defaultProps = {
+  onClearCompleted: () => {},
 };
 
 export default Footer;

@@ -24,13 +24,14 @@ const getVisibleTodos = (todos, filter) => {
 };
 
 const mapStateToProps = ({ todos, visibilityFilter }) => {
-  const activeTodoCount = todos.reduce(function(accum, todo) {
-    return todo.completed ? accum : accum + 1;
-  }, 0);
+  const activeTodoCount = todos.reduce(
+    (accum, todo) => (todo.completed ? accum : accum + 1),
+    0
+  );
 
   return {
+    activeTodoCount,
     todos: getVisibleTodos(todos, visibilityFilter),
-    activeTodoCount: activeTodoCount,
     completedCount: todos.length - activeTodoCount,
   };
 };

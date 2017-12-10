@@ -1,21 +1,19 @@
-export const pluralize = (count, word) => {
-  return count === 1 ? word : word + 's';
-};
+export const pluralize = (count, word) => (count === 1 ? word : `${word} s`);
 
 export const storage = (namespace, data) => {
   if (data) {
     try {
       return localStorage.setItem(namespace, JSON.stringify(data));
     } catch (error) {
-      return void 0;
+      return undefined;
     }
   }
 
-  let store = localStorage.getItem(namespace);
+  const store = localStorage.getItem(namespace);
 
   try {
-    return (store && JSON.parse(store)) || void 0;
+    return (store && JSON.parse(store)) || undefined;
   } catch (error) {
-    return void 0;
+    return undefined;
   }
 };
