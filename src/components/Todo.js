@@ -53,11 +53,10 @@ export default class Todo extends PureComponent {
     }
   };
 
-  handleEdit = () => {
-    this.props.onEdit();
-
-    this.setState({ editText: this.props.todo.title });
-  };
+  handleEdit = () =>
+    this.setState({ editText: this.props.todo.title }, () =>
+      this.props.onEdit()
+    );
 
   handleKeyDown = event => {
     if (event.which === codeKeys.ESCAPE_KEY) {
@@ -69,11 +68,8 @@ export default class Todo extends PureComponent {
     }
   };
 
-  handleChange = event => {
-    if (this.props.editing) {
-      this.setState({ editText: event.target.value });
-    }
-  };
+  handleChange = ({ target: { value } }) =>
+    this.props.editing && this.setState({ editText: value });
 
   render() {
     const { todo, editing, handleToggle, onRemove } = this.props;

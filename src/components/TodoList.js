@@ -45,65 +45,52 @@ class TodoList extends PureComponent {
     completedCount: PropTypes.number.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      editing: null,
-    };
-  }
+  state = {
+    editing: null,
+  };
 
   edit = id => () => this.setState({ editing: id });
 
-  save = id => text => {
-    this.props.editTodo(id, text);
-
-    this.setState({ editing: null });
-  };
+  save = id => text =>
+    this.setState({ editing: null }, () => this.props.editTodo(id, text));
 
   render() {
     const { todos, activeTodoCount, completedCount } = this.props;
-    let footer;
-    let main;
 
-    if (activeTodoCount || completedCount) {
-      footer = (
-        <Footer
-          count={activeTodoCount}
-          completedCount={completedCount}
-          onClearCompleted={this.props.clearCompleted}
+    const footer = (activeTodoCount || completedCount) && (
+      <Footer
+        count={activeTodoCount}
+        completedCount={completedCount}
+        onClearCompleted={this.props.clearCompleted}
+      />
+    );
+
+    const main = todos.length && (
+      <section className="main">
+        <input
+          id="toggle-all"
+          className="toggle-all"
+          type="checkbox"
+          onChange={e => this.props.toggleAll(e.target.checked)}
+          checked={activeTodoCount === 0}
         />
-      );
-    }
-
-    if (todos.length) {
-      main = (
-        <section className="main">
-          <input
-            id="toggle-all"
-            className="toggle-all"
-            type="checkbox"
-            onChange={e => this.props.toggleAll(e.target.checked)}
-            checked={activeTodoCount === 0}
-          />
-          <label htmlFor="toggle-all" />
-          <ul className="todo-list">
-            {todos.map(todo => (
-              <Todo
-                key={todo.id}
-                todo={todo}
-                editing={this.state.editing === todo.id}
-                handleToggle={() => this.props.toggleTodo(todo.id)}
-                onRemove={() => this.props.removeTodo(todo.id)}
-                onEdit={this.edit(todo.id)}
-                onCancel={() => this.setState({ editing: null })}
-                onSave={this.save(todo.id)}
-              />
-            ))}
-          </ul>
-        </section>
-      );
-    }
+        <label htmlFor="toggle-all" />
+        <ul className="todo-list">
+          {todos.map(todo => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              editing={this.state.editing === todo.id}
+              handleToggle={() => this.props.toggleTodo(todo.id)}
+              onRemove={() => this.props.removeTodo(todo.id)}
+              onEdit={this.edit(todo.id)}
+              onCancel={() => this.setState({ editing: null })}
+              onSave={this.save(todo.id)}
+            />
+          ))}
+        </ul>
+      </section>
+    );
 
     return (
       <Fragment>

@@ -30,11 +30,13 @@ const AddTodo = props => {
       autoFocus
       onChange={({ target: { value } }) => props.setNewTodo(value)}
       onKeyDown={handleKeyDown}
+      value={props.value}
     />
   );
 };
 
 AddTodo.propTypes = {
+  value: PropTypes.string.isRequired,
   setNewTodo: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,
 };
