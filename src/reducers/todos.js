@@ -1,16 +1,9 @@
 import uuid from 'uuid';
-import {
-  ADD_TODO,
-  TOGGLE_TODO,
-  CLEAR_COMPLETED,
-  TOGGLE_ALL,
-  REMOVE_TODO,
-  EDIT_TODO,
-} from '../constants/actionTypes';
+import * as actionTypes from '../constants/actionTypes';
 
 const todos = (state = [], action) => {
   switch (action.type) {
-    case ADD_TODO:
+    case actionTypes.ADD_TODO:
       return [
         ...state,
         {
@@ -20,7 +13,7 @@ const todos = (state = [], action) => {
         },
       ];
 
-    case TOGGLE_TODO:
+    case actionTypes.TOGGLE_TODO:
       return state.map(todo => {
         if (todo.id === action.id) {
           return Object.assign({}, todo, {
@@ -30,22 +23,22 @@ const todos = (state = [], action) => {
         return todo;
       });
 
-    case REMOVE_TODO:
+    case actionTypes.REMOVE_TODO:
       return state.filter(todo => todo.id !== action.id);
 
-    case TOGGLE_ALL:
+    case actionTypes.TOGGLE_ALL:
       return state.map(todo =>
         Object.assign({}, todo, { completed: action.checked })
       );
 
-    case EDIT_TODO: {
+    case actionTypes.EDIT_TODO: {
       const { id, title } = action;
 
       return state.map(
         todo => (todo.id === id ? Object.assign({}, todo, { title }) : todo)
       );
     }
-    case CLEAR_COMPLETED:
+    case actionTypes.CLEAR_COMPLETED:
       return state.filter(todo => !todo.completed);
 
     default:

@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
-import TodoListContainer from '../containers/TodoListContainer';
-import AddTodoContainer from '../containers/AddTodoContainer';
+import TodoList from './TodoList';
+import AddTodo from './AddTodo';
 
 const App = props => (
   <Fragment>
     <div className="todoapp">
       <header className="header">
         <h1>todos</h1>
-        <AddTodoContainer />
+        <AddTodo />
       </header>
-      <TodoListContainer {...props} />
+      <TodoList {...props} />
     </div>
     <footer className="info">
       <p>Double-click to edit a todo</p>

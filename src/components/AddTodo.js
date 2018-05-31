@@ -1,21 +1,47 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-const AddTodo = ({ handleChange, handleKeyDown, ...props }) => (
-  <input
-    className="new-todo"
-    placeholder="What needs to be done?"
-    autoFocus
-    onChange={handleChange}
-    onKeyDown={handleKeyDown}
-    {...props}
-  />
-);
+import { setNewTodo, addTodo } from '../actions/index';
+import codeKeys from '../constants/codeKeys';
 
-AddTodo.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleKeyDown: PropTypes.func.isRequired,
+const AddTodo = props => {
+  const handleKeyDown = event => {
+    if (event.keyCode !== codeKeys.ENTER_KEY) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const val = event.target.value.trim();
+
+    if (val) {
+      props.addTodo(val);
+      props.setNewTodo('');
+    }
+  };
+
+  return (
+    <input
+      className="new-todo"
+      placeholder="What needs to be done?"
+      autoFocus
+      onChange={({ target: { value } }) => props.setNewTodo(value)}
+      onKeyDown={handleKeyDown}
+    />
+  );
 };
 
-export default AddTodo;
+AddTodo.propTypes = {
+  setNewTodo: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
+};
+
+export default connect(
+  state => ({
+    value: state.newTodo,
+  }),
+  dispatch => bindActionCreators({ setNewTodo, addTodo }, dispatch)
+)(AddTodo);

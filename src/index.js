@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-// import { HashRouter, Route } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './components/App';
@@ -23,14 +22,6 @@ store.subscribe(
   }, 1000)
 );
 
-// <HashRouter>
-//   <Provider store={store}>
-//     <Route
-//       path="/"
-//       render={props => <TodoList {...props} storageKey="react-todomvc2" />}
-//     />
-//   </Provider>
-// </HashRouter>,
 render(
   <Provider store={store}>
     <App />

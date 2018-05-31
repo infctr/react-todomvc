@@ -1,7 +1,7 @@
 import React from 'react';
-import { pluralize } from '../utils/index';
+import { pluralize } from '../utils';
 import { VisibilityFilters } from '../constants/actionTypes';
-import LinkContainer from '../containers/LinkContainer';
+import FilterLink from './FilterLink';
 import PropTypes from 'prop-types';
 
 const Footer = ({ count, completedCount, onClearCompleted }) => {
@@ -23,7 +23,7 @@ const Footer = ({ count, completedCount, onClearCompleted }) => {
       </span>
       <ul className="filters">
         {Object.values(VisibilityFilters).map(filter => (
-          <LinkContainer key={filter} filter={filter} />
+          <FilterLink key={filter} filter={filter} />
         ))}
       </ul>
       {clearButton}

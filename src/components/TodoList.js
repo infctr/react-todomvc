@@ -1,9 +1,33 @@
 import React, { Fragment, PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Todo from './Todo';
 import Footer from './Footer';
-import PropTypes from 'prop-types';
+import {
+  toggleTodo,
+  clearCompleted,
+  toggleAll,
+  removeTodo,
+  editTodo,
+} from '../actions/index';
 
-export default class TodoList extends PureComponent {
+const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'SHOW_COMPLETED':
+      return todos.filter(todo => todo.completed);
+
+    case 'SHOW_ACTIVE':
+      return todos.filter(todo => !todo.completed);
+
+    case 'SHOW_ALL':
+    default:
+      return todos;
+  }
+};
+
+class TodoList extends PureComponent {
   static propTypes = {
     todos: PropTypes.arrayOf(
       PropTypes.shape({
@@ -89,3 +113,29 @@ export default class TodoList extends PureComponent {
     );
   }
 }
+
+export default connect(
+  ({ todos, visibilityFilter }) => {
+    const activeTodoCount = todos.reduce(
+      (accum, todo) => (todo.completed ? accum : accum + 1),
+      0
+    );
+
+    return {
+      activeTodoCount,
+      todos: getVisibleTodos(todos, visibilityFilter),
+      completedCount: todos.length - activeTodoCount,
+    };
+  },
+  dispatch =>
+    bindActionCreators(
+      {
+        toggleTodo,
+        clearCompleted,
+        toggleAll,
+        removeTodo,
+        editTodo,
+      },
+      dispatch
+    )
+)(TodoList);
