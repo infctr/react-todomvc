@@ -13,7 +13,7 @@ export default class Todo extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     todo: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      title: PropTypes.bool.isRequired,
+      title: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
     }).isRequired,
     editing: PropTypes.bool.isRequired,
@@ -91,11 +91,12 @@ export default class Todo extends PureComponent {
             checked={todo.completed}
             onChange={handleToggle}
           />
-          <div onDoubleClick={this.handleEdit}>{todo.title}</div>
+          <label onDoubleClick={this.handleEdit}>{todo.title}</label>
           <button className="destroy" onClick={onRemove} />
         </div>
         <input
           ref="editField"
+          type="text"
           className="edit"
           value={this.state.editText}
           onBlur={this.handleSubmit}

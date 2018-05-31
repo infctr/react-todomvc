@@ -29,9 +29,9 @@ export default class TodoList extends PureComponent {
     };
   }
 
-  edit = id => this.setState({ editing: id });
+  edit = id => () => this.setState({ editing: id });
 
-  save = (id, text) => {
+  save = id => text => {
     this.props.editTodo(id, text);
 
     this.setState({ editing: null });
@@ -71,9 +71,9 @@ export default class TodoList extends PureComponent {
                 editing={this.state.editing === todo.id}
                 handleToggle={() => this.props.toggleTodo(todo.id)}
                 onRemove={() => this.props.removeTodo(todo.id)}
-                onEdit={() => this.edit(todo.id)}
+                onEdit={this.edit(todo.id)}
                 onCancel={() => this.setState({ editing: null })}
-                onSave={() => this.save(todo.id)}
+                onSave={this.save(todo.id)}
               />
             ))}
           </ul>
