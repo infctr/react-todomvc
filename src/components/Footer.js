@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { pluralize } from '../utils';
 import { VisibilityFilters } from '../constants/actionTypes';
 import FilterLink from './FilterLink';
-import PropTypes from 'prop-types';
 
 const Footer = ({ count, completedCount, onClearCompleted }) => {
   let clearButton = null;

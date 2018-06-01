@@ -17,3 +17,6 @@ export const storage = (namespace, data) => {
     return undefined;
   }
 };
+
+export const switchCase = cases => defaultCase => key =>
+  Object.prototype.hasOwnProperty.call(cases, key) ? cases[key] : defaultCase;

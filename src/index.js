@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 
 import App from './components/App';
-import TodoApp from './reducers/index';
-import { storage } from './utils/index';
+import TodoApp from './reducers';
+import { storage } from './utils';
 
 import '../node_modules/todomvc-app-css/index.css';
 

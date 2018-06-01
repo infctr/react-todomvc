@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import classNames from 'classnames';
-import codeKeys from '../constants/codeKeys';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import cn from 'classnames';
+
+import codeKeys from '../constants/codeKeys';
 
 export default class Todo extends PureComponent {
   static propTypes = {
@@ -76,7 +77,7 @@ export default class Todo extends PureComponent {
 
     return (
       <li
-        className={classNames({
+        className={cn({
           editing,
           completed: todo.completed,
         })}>

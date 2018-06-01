@@ -1,49 +1,38 @@
 import uuid from 'uuid';
+
+import { switchCase } from '../utils';
 import * as actionTypes from '../constants/actionTypes';
 
-const todos = (state = [], action) => {
-  switch (action.type) {
-    case actionTypes.ADD_TODO:
-      return [
-        ...state,
-        {
-          title: action.title,
-          completed: false,
-          id: uuid.v4(),
-        },
-      ];
+const todos = (state = [], action) =>
+  switchCase({
+    [actionTypes.ADD_TODO]: () => [
+      ...state,
+      {
+        title: action.title,
+        completed: false,
+        id: uuid.v4(),
+      },
+    ],
 
-    case actionTypes.TOGGLE_TODO:
-      return state.map(todo => {
-        if (todo.id === action.id) {
-          return Object.assign({}, todo, {
-            completed: !todo.completed,
-          });
-        }
-        return todo;
-      });
+    [actionTypes.TOGGLE_TODO]: () =>
+      state.map(
+        todo =>
+          todo.id === action.id ? { ...todo, completed: !todo.completed } : todo
+      ),
 
-    case actionTypes.REMOVE_TODO:
-      return state.filter(todo => todo.id !== action.id);
+    [actionTypes.REMOVE_TODO]: () =>
+      state.filter(todo => todo.id !== action.id),
 
-    case actionTypes.TOGGLE_ALL:
-      return state.map(todo =>
-        Object.assign({}, todo, { completed: action.checked })
-      );
+    [actionTypes.TOGGLE_ALL]: () =>
+      state.map(todo => ({ ...todo, completed: action.checked })),
 
-    case actionTypes.EDIT_TODO: {
-      const { id, title } = action;
+    [actionTypes.EDIT_TODO]: () =>
+      state.map(
+        todo =>
+          todo.id === action.id ? { ...todo, title: action.title } : todo
+      ),
 
-      return state.map(
-        todo => (todo.id === id ? Object.assign({}, todo, { title }) : todo)
-      );
-    }
-    case actionTypes.CLEAR_COMPLETED:
-      return state.filter(todo => !todo.completed);
-
-    default:
-      return state;
-  }
-};
+    [actionTypes.CLEAR_COMPLETED]: () => state.filter(todo => !todo.completed),
+  })(() => state)(action.type)();
 
 export default todos;

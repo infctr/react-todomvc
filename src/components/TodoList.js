@@ -11,7 +11,7 @@ import {
   toggleAll,
   removeTodo,
   editTodo,
-} from '../actions/index';
+} from '../actions';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {

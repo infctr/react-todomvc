@@ -1,7 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import { bindActionCreators } from 'redux';
 
 import { setVisibilityFilter } from '../actions/index';
@@ -15,7 +15,7 @@ const VisibilityFilterCaptions = {
 const Link = ({ text, active, filter, ...props }) => (
   <li>
     <a
-      className={classNames({ selected: active })}
+      className={cn({ selected: active })}
       onClick={() => props.setVisibilityFilter(filter)}>
       {text}
     </a>

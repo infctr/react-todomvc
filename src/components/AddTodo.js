@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { setNewTodo, addTodo } from '../actions/index';
+import { setNewTodo, addTodo } from '../actions';
 import codeKeys from '../constants/codeKeys';
 
 const AddTodo = props => {
