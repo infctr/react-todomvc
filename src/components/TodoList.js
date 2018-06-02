@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import cn from 'classnames';
 
 import Todo from './Todo';
 import Footer from './Footer';
@@ -36,6 +37,7 @@ class TodoList extends PureComponent {
         title: PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
+    allChecked: PropTypes.bool.isRequired,
     editTodo: PropTypes.func.isRequired,
     clearCompleted: PropTypes.func.isRequired,
     toggleAll: PropTypes.func.isRequired,
@@ -55,7 +57,7 @@ class TodoList extends PureComponent {
     this.setState({ editing: null }, () => this.props.editTodo(id, text));
 
   render() {
-    const { todos, activeTodoCount, completedCount } = this.props;
+    const { todos, activeTodoCount, completedCount, allChecked } = this.props;
 
     const footer = (activeTodoCount || completedCount) && (
       <Footer
@@ -67,14 +69,18 @@ class TodoList extends PureComponent {
 
     const main = todos.length && (
       <section className="main">
-        <input
-          id="toggle-all"
-          className="toggle-all"
-          type="checkbox"
-          onChange={e => this.props.toggleAll(e.target.checked)}
-          checked={activeTodoCount === 0}
-        />
-        <label htmlFor="toggle-all" />
+        <label
+          htmlFor="toggle-all"
+          className={cn('toggle-all', allChecked && 'checked')}>
+          <input
+            id="toggle-all"
+            type="checkbox"
+            onChange={({ target: { checked } }) =>
+              this.props.toggleAll(checked)
+            }
+            checked={activeTodoCount === 0}
+          />
+        </label>
         <ul className="todo-list">
           {todos.map(todo => (
             <Todo
@@ -107,11 +113,13 @@ export default connect(
       (accum, todo) => (todo.completed ? accum : accum + 1),
       0
     );
+    const completedCount = todos.length - activeTodoCount;
 
     return {
       activeTodoCount,
+      completedCount,
       todos: getVisibleTodos(todos, visibilityFilter),
-      completedCount: todos.length - activeTodoCount,
+      allChecked: todos.length === completedCount,
     };
   },
   dispatch =>

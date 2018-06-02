@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import cn from 'classnames';
 
 import codeKeys from '../constants/codeKeys';
@@ -26,20 +25,16 @@ export default class Todo extends PureComponent {
     this.state = {
       editText: props.todo.title,
     };
+
+    this.editFieldRef = React.createRef();
   }
 
-  /**
-   * Safely manipulate the DOM after updating the state when invoking
-   * `this.props.onEdit()` in the `handleEdit` method above.
-   * For more info refer to notes at https://facebook.github.io/react/docs/component-api.html#setstate
-   * and https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
-   */
   componentDidUpdate(prevProps) {
     if (!prevProps.editing && this.props.editing) {
-      const node = ReactDOM.findDOMNode(this.refs.editField);
+      const node = this.editFieldRef.current;
 
       node.focus();
-      node.setSelectionRange(node.value.length, node.value.length);
+      node.setSelectionRange(0, node.value.length);
     }
   }
 
@@ -88,11 +83,11 @@ export default class Todo extends PureComponent {
             checked={todo.completed}
             onChange={handleToggle}
           />
-          <label onDoubleClick={this.handleEdit}>{todo.title}</label>
+          <span onDoubleClick={this.handleEdit}>{todo.title}</span>
           <button className="destroy" onClick={onRemove} />
         </div>
         <input
-          ref="editField"
+          ref={this.editFieldRef}
           type="text"
           className="edit"
           value={this.state.editText}

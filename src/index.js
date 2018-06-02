@@ -8,7 +8,7 @@ import App from './components/App';
 import TodoApp from './reducers';
 import { storage } from './utils';
 
-import '../node_modules/todomvc-app-css/index.css';
+import './index.css';
 
 const storageKey = 'react-todomvc';
 const persistedState = storage(storageKey);

@@ -14,11 +14,11 @@ const VisibilityFilterCaptions = {
 
 const Link = ({ text, active, filter, ...props }) => (
   <li>
-    <a
+    <button
       className={cn({ selected: active })}
       onClick={() => props.setVisibilityFilter(filter)}>
       {text}
-    </a>
+    </button>
   </li>
 );
 

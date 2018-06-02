@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -27,7 +26,6 @@ const AddTodo = props => {
     <input
       className="new-todo"
       placeholder="What needs to be done?"
-      autoFocus
       onChange={({ target: { value } }) => props.setNewTodo(value)}
       onKeyDown={handleKeyDown}
       value={props.value}
