@@ -7,9 +7,9 @@ import { bindActionCreators } from 'redux';
 import { setVisibilityFilter } from '../actions/index';
 
 const VisibilityFilterCaptions = {
+  SHOW_ACTIVE: 'Active',
   SHOW_ALL: 'All',
   SHOW_COMPLETED: 'Completed',
-  SHOW_ACTIVE: 'Active',
 };
 
 const Link = ({ text, active, filter, ...props }) => (
@@ -24,9 +24,9 @@ const Link = ({ text, active, filter, ...props }) => (
 
 Link.propTypes = {
   active: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
   filter: PropTypes.string.isRequired,
   setVisibilityFilter: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default connect(

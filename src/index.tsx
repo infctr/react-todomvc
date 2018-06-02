@@ -17,8 +17,8 @@ const store = createStore(TodoApp, persistedState);
 store.subscribe(
   throttle(() => {
     storage(storageKey, {
-      todos: store.getState().todos,
       newTodo: store.getState().newTodo,
+      todos: store.getState().todos,
     });
   }, 1000)
 );

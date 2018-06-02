@@ -5,9 +5,9 @@ import todos from './todos';
 import newTodo from './newTodo';
 
 const todoApp = combineReducers({
-  visibilityFilter,
-  todos,
   newTodo,
+  todos,
+  visibilityFilter,
 });
 
 export default todoApp;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import noop from 'lodash/noop';
 
 import { pluralize } from '../utils';
 import { VisibilityFilters } from '../constants/actionTypes';
@@ -33,13 +34,13 @@ const Footer = ({ count, completedCount, onClearCompleted }) => {
 };
 
 Footer.propTypes = {
-  count: PropTypes.number.isRequired,
   completedCount: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
   onClearCompleted: PropTypes.func,
 };
 
 Footer.defaultProps = {
-  onClearCompleted: () => {},
+  onClearCompleted: noop,
 };
 
 export default Footer;

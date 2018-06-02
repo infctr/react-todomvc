@@ -34,9 +34,9 @@ const AddTodo = props => {
 };
 
 AddTodo.propTypes = {
-  value: PropTypes.string.isRequired,
-  setNewTodo: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired,
+  setNewTodo: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default connect(

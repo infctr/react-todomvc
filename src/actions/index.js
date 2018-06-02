@@ -5,39 +5,39 @@ import * as actionTypes from '../constants/actionTypes';
  */
 
 export const addTodo = title => ({
-  type: actionTypes.ADD_TODO,
   title,
+  type: actionTypes.ADD_TODO,
 });
 
 export const toggleTodo = id => ({
-  type: actionTypes.TOGGLE_TODO,
   id,
+  type: actionTypes.TOGGLE_TODO,
 });
 
 export const removeTodo = id => ({
-  type: actionTypes.REMOVE_TODO,
   id,
+  type: actionTypes.REMOVE_TODO,
 });
 
 export const editTodo = (id, title) => ({
-  type: actionTypes.EDIT_TODO,
   id,
   title,
+  type: actionTypes.EDIT_TODO,
 });
 
 export const clearCompleted = () => ({ type: actionTypes.CLEAR_COMPLETED });
 
 export const toggleAll = checked => ({
-  type: actionTypes.TOGGLE_ALL,
   checked,
+  type: actionTypes.TOGGLE_ALL,
 });
 
 export const setVisibilityFilter = filter => ({
-  type: actionTypes.SET_VISIBILITY_FILTER,
   filter,
+  type: actionTypes.SET_VISIBILITY_FILTER,
 });
 
 export const setNewTodo = title => ({
-  type: actionTypes.SET_NEW_TODO,
   title,
+  type: actionTypes.SET_NEW_TODO,
 });

@@ -30,21 +30,21 @@ const getVisibleTodos = (todos, filter) => {
 
 class TodoList extends PureComponent {
   static propTypes = {
+    activeTodoCount: PropTypes.number.isRequired,
+    allChecked: PropTypes.bool.isRequired,
+    clearCompleted: PropTypes.func.isRequired,
+    completedCount: PropTypes.number.isRequired,
+    editTodo: PropTypes.func.isRequired,
+    removeTodo: PropTypes.func.isRequired,
     todos: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
         completed: PropTypes.bool.isRequired,
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
-    allChecked: PropTypes.bool.isRequired,
-    editTodo: PropTypes.func.isRequired,
-    clearCompleted: PropTypes.func.isRequired,
     toggleAll: PropTypes.func.isRequired,
     toggleTodo: PropTypes.func.isRequired,
-    removeTodo: PropTypes.func.isRequired,
-    activeTodoCount: PropTypes.number.isRequired,
-    completedCount: PropTypes.number.isRequired,
   };
 
   state = {
@@ -59,7 +59,7 @@ class TodoList extends PureComponent {
   render() {
     const { todos, activeTodoCount, completedCount, allChecked } = this.props;
 
-    const footer = (activeTodoCount || completedCount) && (
+    const footer = (!!activeTodoCount || !!completedCount) && (
       <Footer
         count={activeTodoCount}
         completedCount={completedCount}
@@ -67,7 +67,7 @@ class TodoList extends PureComponent {
       />
     );
 
-    const main = todos.length && (
+    const main = !!todos.length && (
       <section className="main">
         <label
           htmlFor="toggle-all"
@@ -118,18 +118,18 @@ export default connect(
     return {
       activeTodoCount,
       completedCount,
-      todos: getVisibleTodos(todos, visibilityFilter),
       allChecked: todos.length === completedCount,
+      todos: getVisibleTodos(todos, visibilityFilter),
     };
   },
   dispatch =>
     bindActionCreators(
       {
-        toggleTodo,
         clearCompleted,
-        toggleAll,
-        removeTodo,
         editTodo,
+        removeTodo,
+        toggleAll,
+        toggleTodo,
       },
       dispatch
     )

@@ -6,17 +6,17 @@ import codeKeys from '../constants/codeKeys';
 
 export default class Todo extends PureComponent {
   static propTypes = {
+    editing: PropTypes.bool.isRequired,
     handleToggle: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
     todo: PropTypes.shape({
+      completed: PropTypes.bool.isRequired,
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      completed: PropTypes.bool.isRequired,
     }).isRequired,
-    editing: PropTypes.bool.isRequired,
   };
 
   constructor(props) {

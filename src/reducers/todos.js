@@ -8,9 +8,9 @@ const todos = (state = [], action) =>
     [actionTypes.ADD_TODO]: () => [
       ...state,
       {
-        title: action.title,
         completed: false,
         id: uuid.v4(),
+        title: action.title,
       },
     ],
 
