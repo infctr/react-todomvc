@@ -2,43 +2,60 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import codeKeys from '../constants/codeKeys';
+import { CodeKeys } from '../constants/codeKeys';
+import { todoPropTypes } from './propTypes';
+import { Todo } from '../types/models';
 
-export default class Todo extends PureComponent {
-  static propTypes = {
+interface TodoItemProps {
+  editing: boolean;
+  handleToggle: () => void;
+  onCancel: () => void;
+  onEdit: () => void;
+  onRemove: () => void;
+  onSave: (s: string) => void;
+  todo: Todo;
+}
+
+interface TodoItemState {
+  editText: string;
+}
+
+export default class TodoItem extends PureComponent<
+  TodoItemProps,
+  TodoItemState
+> {
+  public static propTypes = {
     editing: PropTypes.bool.isRequired,
     handleToggle: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    todo: PropTypes.shape({
-      completed: PropTypes.bool.isRequired,
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired,
+    todo: todoPropTypes.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: TodoItemProps) {
     super(props);
 
     this.state = {
       editText: props.todo.title,
     };
-
-    this.editFieldRef = React.createRef();
   }
 
-  componentDidUpdate(prevProps) {
+  private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
+
+  public componentDidUpdate(prevProps: TodoItemProps) {
     if (!prevProps.editing && this.props.editing) {
       const node = this.editFieldRef.current;
 
-      node.focus();
-      node.setSelectionRange(0, node.value.length);
+      if (node) {
+        node.focus();
+        node.setSelectionRange(0, node.value.length);
+      }
     }
   }
 
-  handleSubmit = () => {
+  private handleSubmit = () => {
     const val = this.state.editText.trim();
 
     if (val) {
@@ -49,25 +66,25 @@ export default class Todo extends PureComponent {
     }
   };
 
-  handleEdit = () =>
+  private handleEdit = () =>
     this.setState({ editText: this.props.todo.title }, () =>
       this.props.onEdit()
     );
 
-  handleKeyDown = event => {
-    if (event.which === codeKeys.ESCAPE_KEY) {
+  private handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.which === CodeKeys.ESCAPE_KEY) {
       this.setState({ editText: this.props.todo.title });
 
-      this.props.onCancel(event);
-    } else if (event.which === codeKeys.ENTER_KEY) {
-      this.handleSubmit(event);
+      this.props.onCancel();
+    } else if (event.which === CodeKeys.ENTER_KEY) {
+      this.handleSubmit();
     }
   };
 
-  handleChange = ({ target: { value } }) =>
-    this.props.editing && this.setState({ editText: value });
+  private handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    this.props.editing && this.setState({ editText: event.target.value });
 
-  render() {
+  public render() {
     const { todo, editing, handleToggle, onRemove } = this.props;
 
     return (

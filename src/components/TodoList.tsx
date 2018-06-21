@@ -1,10 +1,10 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cn from 'classnames';
 
-import Todo from './Todo';
+import TodoItem from './TodoItem';
 import Footer from './Footer';
 import {
   toggleTodo,
@@ -12,51 +12,67 @@ import {
   toggleAll,
   removeTodo,
   editTodo,
-} from '../actions';
+} from '../actions/todos';
+import { todoPropTypes } from './propTypes';
+import { RootState } from '../reducers';
+import { Todo, VisibilityFilters } from '../types/models';
 
-const getVisibleTodos = (todos, filter) => {
+const getVisibleTodos = (
+  todos: ReadonlyArray<Todo>,
+  filter: VisibilityFilters
+) => {
   switch (filter) {
-    case 'SHOW_COMPLETED':
+    case VisibilityFilters.SHOW_COMPLETED:
       return todos.filter(todo => todo.completed);
 
-    case 'SHOW_ACTIVE':
+    case VisibilityFilters.SHOW_ACTIVE:
       return todos.filter(todo => !todo.completed);
 
-    case 'SHOW_ALL':
+    case VisibilityFilters.SHOW_ALL:
     default:
       return todos;
   }
 };
 
-class TodoList extends PureComponent {
-  static propTypes = {
+interface TodoListProps {
+  activeTodoCount: number;
+  allChecked: boolean;
+  clearCompleted: typeof clearCompleted;
+  completedCount: number;
+  editTodo: typeof editTodo;
+  removeTodo: typeof removeTodo;
+  todos: ReadonlyArray<Todo>;
+  toggleAll: typeof toggleAll;
+  toggleTodo: typeof toggleTodo;
+}
+
+interface TodoListState {
+  editing: string;
+}
+
+class TodoList extends PureComponent<TodoListProps, TodoListState> {
+  public static propTypes = {
     activeTodoCount: PropTypes.number.isRequired,
     allChecked: PropTypes.bool.isRequired,
     clearCompleted: PropTypes.func.isRequired,
     completedCount: PropTypes.number.isRequired,
     editTodo: PropTypes.func.isRequired,
     removeTodo: PropTypes.func.isRequired,
-    todos: PropTypes.arrayOf(
-      PropTypes.shape({
-        completed: PropTypes.bool.isRequired,
-        id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-      }).isRequired
-    ).isRequired,
+    todos: PropTypes.arrayOf(todoPropTypes).isRequired,
     toggleAll: PropTypes.func.isRequired,
     toggleTodo: PropTypes.func.isRequired,
   };
 
-  state = {
-    editing: null,
+  public readonly state = {
+    editing: '',
   };
 
-  edit = id => () => this.setState({ editing: id });
+  private edit = (id: string) => () => this.setState({ editing: id });
 
-  save = id => text =>
-    this.setState({ editing: null }, () => this.props.editTodo(id, text));
+  private save = (id: string) => (text: string) =>
+    this.setState({ editing: '' }, () => this.props.editTodo(id, text));
 
-  render() {
+  public render() {
     const { todos, activeTodoCount, completedCount, allChecked } = this.props;
 
     const footer = (!!activeTodoCount || !!completedCount) && (
@@ -83,14 +99,14 @@ class TodoList extends PureComponent {
         </label>
         <ul className="todo-list">
           {todos.map(todo => (
-            <Todo
+            <TodoItem
               key={todo.id}
               todo={todo}
               editing={this.state.editing === todo.id}
               handleToggle={() => this.props.toggleTodo(todo.id)}
               onRemove={() => this.props.removeTodo(todo.id)}
               onEdit={this.edit(todo.id)}
-              onCancel={() => this.setState({ editing: null })}
+              onCancel={() => this.setState({ editing: '' })}
               onSave={this.save(todo.id)}
             />
           ))}
@@ -108,7 +124,7 @@ class TodoList extends PureComponent {
 }
 
 export default connect(
-  ({ todos, visibilityFilter }) => {
+  ({ todos, visibilityFilter }: RootState) => {
     const activeTodoCount = todos.reduce(
       (accum, todo) => (todo.completed ? accum : accum + 1),
       0
@@ -122,7 +138,8 @@ export default connect(
       todos: getVisibleTodos(todos, visibilityFilter),
     };
   },
-  dispatch =>
+
+  (dispatch: Dispatch) =>
     bindActionCreators(
       {
         clearCompleted,

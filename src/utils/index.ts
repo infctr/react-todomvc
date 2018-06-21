@@ -1,6 +1,7 @@
-export const pluralize = (count, word) => (count === 1 ? word : `${word} s`);
+export const pluralize = (count: number, word: string) =>
+  count === 1 ? word : `${word}s`;
 
-export const storage = (namespace, data) => {
+export const storage = (namespace: string, data?: object) => {
   if (data) {
     try {
       return localStorage.setItem(namespace, JSON.stringify(data));
@@ -18,5 +19,7 @@ export const storage = (namespace, data) => {
   }
 };
 
-export const switchCase = cases => defaultCase => key =>
+export const switchCase = (cases: object) => (
+  defaultCase: number | string | (() => {})
+) => (key: string) =>
   Object.prototype.hasOwnProperty.call(cases, key) ? cases[key] : defaultCase;

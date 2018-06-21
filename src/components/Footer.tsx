@@ -3,20 +3,31 @@ import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import { pluralize } from '../utils';
-import { VisibilityFilters } from '../constants/actionTypes';
+import { VisibilityFilters } from '../types/models';
 import FilterLink from './FilterLink';
 
-const Footer = ({ count, completedCount, onClearCompleted }) => {
-  let clearButton = null;
+export interface FooterProps {
+  count: number;
+  completedCount: number;
+  onClearCompleted: () => void;
+}
+
+interface DefaultProps {
+  readonly onClearCompleted: () => void;
+}
+
+const Footer: React.SFC<FooterProps & DefaultProps> = ({
+  count,
+  completedCount,
+  onClearCompleted,
+}) => {
   const activeTodoWord = pluralize(count, 'item');
 
-  if (completedCount > 0) {
-    clearButton = (
-      <button className="clear-completed" onClick={onClearCompleted}>
-        Clear completed
-      </button>
-    );
-  }
+  const clearButton = completedCount > 0 && (
+    <button className="clear-completed" onClick={onClearCompleted}>
+      Clear completed
+    </button>
+  );
 
   return (
     <footer className="footer">
@@ -24,9 +35,9 @@ const Footer = ({ count, completedCount, onClearCompleted }) => {
         <strong>{count}</strong> {activeTodoWord} left
       </span>
       <ul className="filters">
-        {Object.values(VisibilityFilters).map(filter => (
-          <FilterLink key={filter} filter={filter} />
-        ))}
+        {Object.keys(VisibilityFilters)
+          .filter(key => !Number.isNaN(Number(key)))
+          .map(key => <FilterLink key={key} filter={Number(key)} />)}
       </ul>
       {clearButton}
     </footer>

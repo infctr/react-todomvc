@@ -5,14 +5,14 @@ import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 
 import App from './components/App';
-import TodoApp from './reducers';
+import rootReducer from './reducers';
 import { storage } from './utils';
 
 import './index.css';
 
 const storageKey = 'react-todomvc';
 const persistedState = storage(storageKey);
-const store = createStore(TodoApp, persistedState);
+const store = createStore(rootReducer, persistedState);
 
 store.subscribe(
   throttle(() => {
@@ -27,5 +27,5 @@ render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root') as HTMLElement
 );

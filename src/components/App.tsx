@@ -3,14 +3,14 @@ import React, { Fragment } from 'react';
 import TodoList from './TodoList';
 import AddTodo from './AddTodo';
 
-const App = props => (
+const App: React.SFC = () => (
   <Fragment>
     <div className="todoapp">
       <header className="header">
         <h1>todos</h1>
         <AddTodo />
       </header>
-      <TodoList {...props} />
+      <TodoList />
     </div>
     <footer className="info">
       <p>Double-click to edit a todo</p>

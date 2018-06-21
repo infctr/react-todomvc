@@ -1,13 +1,16 @@
 import { combineReducers } from 'redux';
+import { StateType } from 'typesafe-actions';
 
 import visibilityFilter from './visibilityFilter';
 import todos from './todos';
 import newTodo from './newTodo';
 
-const todoApp = combineReducers({
+const rootReducer = combineReducers({
   newTodo,
   todos,
   visibilityFilter,
 });
 
-export default todoApp;
+export default rootReducer;
+
+export type RootState = StateType<typeof rootReducer>;
