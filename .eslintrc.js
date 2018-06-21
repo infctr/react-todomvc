@@ -1,5 +1,5 @@
 module.exports = {
-  parser: 'babel-eslint',
+  parser: 'typescript-eslint-parser',
   env: {
     browser: true,
     commonjs: true,
@@ -11,11 +11,11 @@ module.exports = {
   plugins: ['types', 'prettier'],
 
   parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
+    ecmaVersion: 6,
+    sourceType: 'module',
   },
 
   rules: {
@@ -38,4 +38,21 @@ module.exports = {
       },
     ],
   },
+
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
+  overrides: [
+    {
+      files: ['**/*.ts', '**/*.tsx'],
+      parser: 'typescript-eslint-parser',
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
 };

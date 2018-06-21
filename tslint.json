@@ -3,12 +3,14 @@
   "linterOptions": {
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
     "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
     "member-ordering": false,
     "ordered-imports": false,
     "interface-name": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "prettier": true
   },
   "jsRules": {
     "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
