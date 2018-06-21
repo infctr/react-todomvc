@@ -5,7 +5,7 @@ export interface Todo {
 }
 
 export enum VisibilityFilters {
-  SHOW_ACTIVE,
   SHOW_ALL,
+  SHOW_ACTIVE,
   SHOW_COMPLETED,
 }

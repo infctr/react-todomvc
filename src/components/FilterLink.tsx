@@ -9,9 +9,9 @@ import { RootState } from '../reducers';
 import { VisibilityFilters } from '../types/models';
 
 const VisibilityFilterCaptions = {
-  SHOW_ACTIVE: 'Active',
-  SHOW_ALL: 'All',
-  SHOW_COMPLETED: 'Completed',
+  [VisibilityFilters[VisibilityFilters.SHOW_ALL]]: 'All',
+  [VisibilityFilters[VisibilityFilters.SHOW_ACTIVE]]: 'Active',
+  [VisibilityFilters[VisibilityFilters.SHOW_COMPLETED]]: 'Completed',
 };
 
 interface FilterLinkProps {
