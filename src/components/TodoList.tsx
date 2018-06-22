@@ -47,7 +47,7 @@ interface TodoListProps {
 }
 
 interface TodoListState {
-  editing: string;
+  editing: string | null;
 }
 
 class TodoList extends PureComponent<TodoListProps, TodoListState> {
@@ -64,13 +64,13 @@ class TodoList extends PureComponent<TodoListProps, TodoListState> {
   };
 
   public readonly state = {
-    editing: '',
+    editing: null,
   };
 
   private edit = (id: string) => () => this.setState({ editing: id });
 
   private save = (id: string) => (text: string) =>
-    this.setState({ editing: '' }, () => this.props.editTodo(id, text));
+    this.setState({ editing: null }, () => this.props.editTodo(id, text));
 
   public render() {
     const { todos, activeTodoCount, completedCount, allChecked } = this.props;
@@ -106,7 +106,7 @@ class TodoList extends PureComponent<TodoListProps, TodoListState> {
               handleToggle={() => this.props.toggleTodo(todo.id)}
               onRemove={() => this.props.removeTodo(todo.id)}
               onEdit={this.edit(todo.id)}
-              onCancel={() => this.setState({ editing: '' })}
+              onCancel={() => this.setState({ editing: null })}
               onSave={this.save(todo.id)}
             />
           ))}

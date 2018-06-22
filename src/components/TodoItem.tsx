@@ -13,7 +13,7 @@ interface TodoItemProps {
   onEdit: () => void;
   onRemove: () => void;
   onSave: (s: string) => void;
-  todo: Todo;
+  todo: Readonly<Todo>;
 }
 
 interface TodoItemState {
@@ -24,6 +24,8 @@ export default class TodoItem extends PureComponent<
   TodoItemProps,
   TodoItemState
 > {
+  private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
+
   public static propTypes = {
     editing: PropTypes.bool.isRequired,
     handleToggle: PropTypes.func.isRequired,
@@ -41,8 +43,6 @@ export default class TodoItem extends PureComponent<
       editText: props.todo.title,
     };
   }
-
-  private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
 
   public componentDidUpdate(prevProps: TodoItemProps) {
     if (!prevProps.editing && this.props.editing) {
@@ -101,7 +101,7 @@ export default class TodoItem extends PureComponent<
             onChange={handleToggle}
           />
           <span onDoubleClick={this.handleEdit}>{todo.title}</span>
-          <button className="destroy" onClick={onRemove} />
+          <button type="button" className="destroy" onClick={onRemove} />
         </div>
         <input
           ref={this.editFieldRef}

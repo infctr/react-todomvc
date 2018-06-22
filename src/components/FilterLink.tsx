@@ -29,6 +29,7 @@ const FilterLink: React.SFC<FilterLinkProps> = ({
 }) => (
   <li>
     <button
+      type="button"
       className={cn({ selected: active })}
       onClick={() => props.setVisibilityFilter(filter)}>
       {text}

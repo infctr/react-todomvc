@@ -5,3 +5,5 @@ export const todoPropTypes = PropTypes.shape({
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 });
+
+export default todoPropTypes;

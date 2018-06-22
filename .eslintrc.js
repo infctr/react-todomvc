@@ -7,28 +7,25 @@ module.exports = {
     node: true,
   },
 
-  extends: ['airbnb', 'prettier'],
-  plugins: ['types', 'prettier'],
+  extends: [
+    'airbnb',
+    'prettier',
+    'prettier/react',
+    'prettier/standard',
+    'plugin:prettier/recommended',
+    'plugin:jest/recommended',
+  ],
+  plugins: ['types', 'prettier', 'jest', 'typescript'],
 
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 6,
     sourceType: 'module',
   },
 
   rules: {
     'import/first': [2, { 'absolute-first': 0 }],
-    'react/jsx-filename-extension': [0],
-
-    'react/jsx-closing-bracket-location': [
-      2,
-      {
-        nonEmpty: 'after-props',
-      },
-    ],
-
     'prettier/prettier': [
       2,
       {
@@ -37,6 +34,18 @@ module.exports = {
         trailingComma: 'es5',
       },
     ],
+
+    'react/destructuring-assignment': [0], // airbnb 17.0
+    'react/jsx-closing-bracket-location': [
+      2,
+      {
+        nonEmpty: 'after-props',
+      },
+    ],
+    'react/jsx-filename-extension': [0],
+    'react/jsx-one-expression-per-line': [0], // airbnb 17.0
+
+    'typescript/no-unused-vars': [2],
   },
 
   settings: {
@@ -46,12 +55,14 @@ module.exports = {
       },
     },
   },
+
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
       parser: 'typescript-eslint-parser',
       rules: {
-        'no-undef': 'off',
+        'no-undef': [0],
+        'no-unused-vars': [0],
       },
     },
   ],

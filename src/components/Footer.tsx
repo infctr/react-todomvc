@@ -24,7 +24,10 @@ const Footer: React.SFC<FooterProps & DefaultProps> = ({
   const activeTodoWord = pluralize(count, 'item');
 
   const clearButton = completedCount > 0 && (
-    <button className="clear-completed" onClick={onClearCompleted}>
+    <button
+      type="button"
+      className="clear-completed"
+      onClick={onClearCompleted}>
       Clear completed
     </button>
   );
