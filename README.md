@@ -2,6 +2,7 @@
 
 - [x] React
 - [x] Redux
+- [ ] CSS Modules
 - [ ] Routing
 - [x] ESLint
 - [x] Typescript
