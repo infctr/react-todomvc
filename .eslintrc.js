@@ -63,6 +63,7 @@ module.exports = {
       rules: {
         'no-undef': [0],
         'no-unused-vars': [0],
+        'no-use-before-define': ['error', { functions: false, classes: false }],
       },
     },
   ],
