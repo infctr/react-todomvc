@@ -15,5 +15,6 @@
   "jsRules": {
     "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
     "ordered-imports": false
-  }
+  },
+  "defaultSeverity": "warning"
 }
