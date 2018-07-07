@@ -10,9 +10,20 @@ import { storage } from './utils';
 
 import './index.css';
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__?: any;
+  }
+}
+
 const storageKey = 'react-todomvc';
 const persistedState = storage(storageKey);
-const store = createStore(rootReducer, persistedState);
+const store = createStore(
+  rootReducer,
+  persistedState,
+  // eslint-disable-next-line no-underscore-dangle
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 store.subscribe(
   throttle(() => {
