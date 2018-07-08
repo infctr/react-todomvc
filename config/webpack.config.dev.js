@@ -103,7 +103,7 @@ module.exports = {
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: 'static/js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath,
+    publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
@@ -135,9 +135,17 @@ module.exports = {
     // https://github.com/facebook/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: [
+      '.web.js',
+      '.mjs',
+      '.js',
+      '.json',
+      '.web.jsx',
+      '.jsx',
+      '.ts',
+      '.tsx',
+    ],
     alias: {
-      
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
@@ -149,6 +157,7 @@ module.exports = {
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
       new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+      // new CheckerPlugin(),
     ],
   },
   module: {
@@ -170,7 +179,6 @@ module.exports = {
               baseConfig: {
                 extends: [require.resolve('eslint-config-react-app')],
               },
-              
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -197,22 +205,22 @@ module.exports = {
           // Process application JS with Babel.
           // The preset includes JSX, Flow, and some ESnext features.
           {
-            test: /\.(js|jsx|mjs)$/,
+            test: /\.(ts|tsx|js|jsx|mjs)$/,
             include: paths.srcPaths,
             exclude: [/[/\\\\]node_modules[/\\\\]/],
             use: [
               // This loader parallelizes code compilation, it is optional but
               // improves compile time on larger projects
-              {
-                loader: require.resolve('thread-loader'),
-                options: {
-                  poolTimeout: Infinity // keep workers alive for more effective watch mode
-                },
-              },
+              // TODO: doesn't work with TS
+              // {
+              //   loader: require.resolve('thread-loader'),
+              //   options: {
+              //     poolTimeout: Infinity, // keep workers alive for more effective watch mode
+              //   },
+              // },
               {
                 loader: require.resolve('babel-loader'),
                 options: {
-                  
                   presets: [require.resolve('babel-preset-react-app')],
                   plugins: [
                     [
@@ -233,6 +241,13 @@ module.exports = {
                   highlightCode: true,
                 },
               },
+              {
+                loader: require.resolve('awesome-typescript-loader'),
+                options: {
+                  errorsAsWarnings: true,
+                  useCache: true,
+                },
+              },
             ],
           },
           // Process any JS outside of the app with Babel.
@@ -245,7 +260,7 @@ module.exports = {
               {
                 loader: require.resolve('thread-loader'),
                 options: {
-                  poolTimeout: Infinity // keep workers alive for more effective watch mode
+                  poolTimeout: Infinity, // keep workers alive for more effective watch mode
                 },
               },
               {
