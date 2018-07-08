@@ -13,6 +13,7 @@
   },
   "jsRules": {
     "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
+    "member-ordering": false,
     "ordered-imports": false
   },
   "defaultSeverity": "warning"
