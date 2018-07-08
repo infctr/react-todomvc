@@ -34,23 +34,29 @@ const getVisibleTodos = (
   }
 };
 
-interface TodoListProps {
+const actionCreators = {
+  clearCompleted,
+  editTodo,
+  removeTodo,
+  toggleAll,
+  toggleTodo,
+};
+
+type IDispatchProps = typeof actionCreators;
+interface IStateProps {
   activeTodoCount: number;
   allChecked: boolean;
-  clearCompleted: typeof clearCompleted;
   completedCount: number;
-  editTodo: typeof editTodo;
-  removeTodo: typeof removeTodo;
   todos: ReadonlyArray<Todo>;
-  toggleAll: typeof toggleAll;
-  toggleTodo: typeof toggleTodo;
 }
 
-interface TodoListState {
+interface IProps extends IStateProps, IDispatchProps {}
+
+interface IState {
   editing: string | null;
 }
 
-class TodoList extends PureComponent<TodoListProps, TodoListState> {
+class TodoList extends PureComponent<IProps, IState> {
   public static propTypes = {
     activeTodoCount: PropTypes.number.isRequired,
     allChecked: PropTypes.bool.isRequired,
@@ -139,15 +145,5 @@ export default connect(
     };
   },
 
-  (dispatch: Dispatch) =>
-    bindActionCreators(
-      {
-        clearCompleted,
-        editTodo,
-        removeTodo,
-        toggleAll,
-        toggleTodo,
-      },
-      dispatch
-    )
+  (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch)
 )(TodoList);

@@ -8,7 +8,6 @@
     "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
     "member-ordering": false,
     "ordered-imports": false,
-    "interface-name": false,
     "jsx-no-lambda": false,
     "prettier": true
   },

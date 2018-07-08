@@ -6,24 +6,24 @@ import { pluralize } from '../utils';
 import { VisibilityFilters } from '../types/models';
 import FilterLink from './FilterLink';
 
-export interface FooterProps {
+export interface IProps {
   count: number;
   completedCount: number;
   onClearCompleted?: () => void;
 }
 
-interface FooterDefaultProps {
+interface IDefaultProps {
   onClearCompleted: () => void;
 }
 
-class Footer extends PureComponent<FooterProps> {
+class Footer extends PureComponent<IProps> {
   public static propTypes = {
     completedCount: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     onClearCompleted: PropTypes.func,
   };
 
-  public static defaultProps: FooterDefaultProps = {
+  public static defaultProps: IDefaultProps = {
     onClearCompleted: noop,
   };
 

@@ -8,13 +8,16 @@ import { addTodo } from '../actions/todos';
 import { CodeKeys } from '../constants/codeKeys';
 import { RootState } from '../reducers';
 
-export interface AddTodoProps {
-  addTodo: typeof addTodo;
-  setNewTodo: typeof setNewTodo;
+const actionCreatores = { setNewTodo, addTodo };
+
+interface IStateProps {
   value: string;
 }
+type IDispatchProps = typeof actionCreatores;
 
-const AddTodo: React.SFC<AddTodoProps> = props => {
+interface IProps extends IStateProps, IDispatchProps {}
+
+const AddTodo: React.SFC<IProps> = props => {
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = event => {
     if (event.keyCode !== CodeKeys.ENTER_KEY) {
       return;
@@ -54,5 +57,5 @@ export default connect(
   ({ newTodo }: RootState) => ({
     value: newTodo,
   }),
-  (dispatch: Dispatch) => bindActionCreators({ setNewTodo, addTodo }, dispatch)
+  (dispatch: Dispatch) => bindActionCreators(actionCreatores, dispatch)
 )(AddTodo);

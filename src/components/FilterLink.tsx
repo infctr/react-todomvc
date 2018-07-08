@@ -14,19 +14,22 @@ const VisibilityFilterCaptions = {
   [VisibilityFilters[VisibilityFilters.SHOW_COMPLETED]]: 'Completed',
 };
 
-interface FilterLinkProps {
+const actionCreators = { setVisibilityFilter };
+
+type IDispatchProps = typeof actionCreators;
+
+interface IStateProps {
   active: boolean;
-  filter: number;
-  setVisibilityFilter: typeof setVisibilityFilter;
   text: string;
 }
 
-const FilterLink: React.SFC<FilterLinkProps> = ({
-  text,
-  active,
-  filter,
-  ...props
-}) => (
+interface IOwnProps {
+  filter: number;
+}
+
+interface IProps extends IOwnProps, IStateProps, IDispatchProps {}
+
+const FilterLink: React.SFC<IProps> = ({ text, active, filter, ...props }) => (
   <li>
     <button
       type="button"
@@ -44,14 +47,10 @@ FilterLink.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-interface FilterLinkOwnProps {
-  filter: number;
-}
-
 export default connect(
-  ({ visibilityFilter }: RootState, ownProps: FilterLinkOwnProps) => ({
+  ({ visibilityFilter }: RootState, ownProps: IOwnProps) => ({
     active: ownProps.filter === visibilityFilter,
     text: VisibilityFilterCaptions[VisibilityFilters[ownProps.filter]],
   }),
-  dispatch => bindActionCreators({ setVisibilityFilter }, dispatch)
+  dispatch => bindActionCreators(actionCreators, dispatch)
 )(FilterLink);
