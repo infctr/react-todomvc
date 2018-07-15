@@ -66,5 +66,11 @@ module.exports = {
         'no-use-before-define': ['error', { functions: false, classes: false }],
       },
     },
+    {
+      files: ['config-overrides.js'],
+      rules: {
+        'import/no-extraneous-dependencies': 0,
+      },
+    },
   ],
 };
