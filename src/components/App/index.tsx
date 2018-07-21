@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import TodoList from 'components/Todos';
-import AddTodo from '../AddTodo';
+import AddTodo from 'components/AddTodo';
 
 import styles from './index.module.scss';
 

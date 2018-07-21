@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { CodeKeys } from 'constants/codeKeys';
 import { Todo } from 'types/models';
-import { todoPropTypes } from '../propTypes';
 
 import styles from './TodoItem.module.scss';
 
@@ -27,16 +25,6 @@ export default class TodoItem extends PureComponent<
   TodoItemState
 > {
   private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
-
-  public static propTypes = {
-    editing: PropTypes.bool.isRequired,
-    handleToggle: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    todo: todoPropTypes.isRequired,
-  };
 
   constructor(props: TodoItemProps) {
     super(props);

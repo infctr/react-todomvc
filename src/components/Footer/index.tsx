@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
 import { pluralize } from 'utils';
@@ -19,12 +18,6 @@ interface IDefaultProps extends Partial<IProps> {
 }
 
 class Footer extends PureComponent<IProps> {
-  public static propTypes = {
-    completedCount: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
-    onClearCompleted: PropTypes.func,
-  };
-
   public static defaultProps: IDefaultProps = {
     onClearCompleted: noop,
   };

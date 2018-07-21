@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
@@ -47,12 +46,6 @@ const AddTodo: React.SFC<IProps> = props => {
       value={props.value}
     />
   );
-};
-
-AddTodo.propTypes = {
-  addTodo: PropTypes.func.isRequired,
-  setNewTodo: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
 };
 
 export default connect(

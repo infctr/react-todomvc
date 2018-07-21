@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import { bindActionCreators } from 'redux';
@@ -41,13 +40,6 @@ const FilterLink: React.SFC<IProps> = ({ text, active, filter, ...props }) => (
     </button>
   </li>
 );
-
-FilterLink.propTypes = {
-  active: PropTypes.bool.isRequired,
-  filter: PropTypes.number.isRequired,
-  setVisibilityFilter: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-};
 
 export default connect(
   ({ visibilityFilter }: RootState, ownProps: IOwnProps) => ({

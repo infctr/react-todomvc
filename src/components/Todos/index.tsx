@@ -1,5 +1,4 @@
 import React, { Fragment, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import cn from 'classnames';
@@ -14,7 +13,6 @@ import {
 } from 'actions/todos';
 import { RootState } from 'reducers';
 import { Todo, VisibilityFilters } from 'types/models';
-import { todoPropTypes } from '../propTypes';
 import TodoItem from './TodoItem';
 
 import styles from './index.module.scss';
@@ -59,18 +57,6 @@ interface IState {
 }
 
 class TodoList extends PureComponent<IProps, IState> {
-  public static propTypes = {
-    activeTodoCount: PropTypes.number.isRequired,
-    allChecked: PropTypes.bool.isRequired,
-    clearCompleted: PropTypes.func.isRequired,
-    completedCount: PropTypes.number.isRequired,
-    editTodo: PropTypes.func.isRequired,
-    removeTodo: PropTypes.func.isRequired,
-    todos: PropTypes.arrayOf(todoPropTypes).isRequired,
-    toggleAll: PropTypes.func.isRequired,
-    toggleTodo: PropTypes.func.isRequired,
-  };
-
   public readonly state = {
     editing: null,
   };

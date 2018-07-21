@@ -26,6 +26,7 @@ module.exports = {
 
   rules: {
     'import/first': [2, { 'absolute-first': 0 }],
+    'react/prop-types': 0,
     'prettier/prettier': [
       2,
       {
