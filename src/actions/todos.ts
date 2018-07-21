@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import * as actionTypes from '../constants/actionTypes';
+import * as actionTypes from 'constants/actionTypes';
 
 export const addTodo = (title: string) =>
   action(actionTypes.ADD_TODO, { title });

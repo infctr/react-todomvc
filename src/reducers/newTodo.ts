@@ -1,7 +1,7 @@
 import { ActionType } from 'typesafe-actions';
 
-import { SET_NEW_TODO } from '../constants/actionTypes';
-import { newTodo as newTodoActions } from '../actions';
+import { SET_NEW_TODO } from 'constants/actionTypes';
+import { newTodo as newTodoActions } from 'actions';
 
 export type NewTodoState = string;
 export type NewTodoAction = ActionType<typeof newTodoActions>;

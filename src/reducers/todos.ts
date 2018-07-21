@@ -1,9 +1,9 @@
 import uuid from 'uuid';
 import { ActionType } from 'typesafe-actions';
 
-import * as actionTypes from '../constants/actionTypes';
-import { todos as todosActions } from '../actions';
-import { Todo } from '../types/models';
+import * as actionTypes from 'constants/actionTypes';
+import { todos as todosActions } from 'actions';
+import { Todo } from 'types/models';
 
 export type TodosAction = ActionType<typeof todosActions>;
 export type TodosState = ReadonlyArray<Todo>;

@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import { bindActionCreators } from 'redux';
 
-import { setVisibilityFilter } from '../actions/visibilityFilter';
-import { RootState } from '../reducers';
-import { VisibilityFilters } from '../types/models';
+import { setVisibilityFilter } from 'actions/visibilityFilter';
+import { RootState } from 'reducers';
+import { VisibilityFilters } from 'types/models';
+
+import styles from './index.module.scss';
 
 const VisibilityFilterCaptions = {
   [VisibilityFilters[VisibilityFilters.SHOW_ALL]]: 'All',
@@ -33,7 +35,7 @@ const FilterLink: React.SFC<IProps> = ({ text, active, filter, ...props }) => (
   <li>
     <button
       type="button"
-      className={cn({ selected: active })}
+      className={cn(styles.button, active && styles.selected)}
       onClick={() => props.setVisibilityFilter(filter)}>
       {text}
     </button>

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { setNewTodo } from '../actions/newTodo';
-import { addTodo } from '../actions/todos';
-import { CodeKeys } from '../constants/codeKeys';
-import { RootState } from '../reducers';
+import { setNewTodo } from 'actions/newTodo';
+import { addTodo } from 'actions/todos';
+import { CodeKeys } from 'constants/codeKeys';
+import { RootState } from 'reducers';
+
+import styles from './index.module.scss';
 
 const actionCreatores = { setNewTodo, addTodo };
 
@@ -38,7 +40,7 @@ const AddTodo: React.SFC<IProps> = props => {
 
   return (
     <input
-      className="new-todo"
+      className={styles.newTodo}
       placeholder="What needs to be done?"
       onChange={handleChange}
       onKeyDown={handleKeyDown}

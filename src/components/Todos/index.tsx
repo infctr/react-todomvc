@@ -4,18 +4,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import cn from 'classnames';
 
-import TodoItem from './TodoItem';
-import Footer from './Footer';
+import Footer from 'components/Footer';
 import {
   toggleTodo,
   clearCompleted,
   toggleAll,
   removeTodo,
   editTodo,
-} from '../actions/todos';
-import { todoPropTypes } from './propTypes';
-import { RootState } from '../reducers';
-import { Todo, VisibilityFilters } from '../types/models';
+} from 'actions/todos';
+import { RootState } from 'reducers';
+import { Todo, VisibilityFilters } from 'types/models';
+import { todoPropTypes } from '../propTypes';
+import TodoItem from './TodoItem';
+
+import styles from './index.module.scss';
 
 const getVisibleTodos = (
   todos: ReadonlyArray<Todo>,
@@ -90,10 +92,10 @@ class TodoList extends PureComponent<IProps, IState> {
     );
 
     const main = !!todos.length && (
-      <section className="main">
+      <section className={styles.main}>
         <label
           htmlFor="toggle-all"
-          className={cn('toggle-all', allChecked && 'checked')}>
+          className={cn(styles.toggleAll, allChecked && styles.checked)}>
           <input
             id="toggle-all"
             type="checkbox"
@@ -103,7 +105,7 @@ class TodoList extends PureComponent<IProps, IState> {
             checked={activeTodoCount === 0}
           />
         </label>
-        <ul className="todo-list">
+        <ul className={styles.list}>
           {todos.map(todo => (
             <TodoItem
               key={todo.id}

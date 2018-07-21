@@ -64,6 +64,8 @@ module.exports = {
         'no-undef': [0],
         'no-unused-vars': [0],
         'no-use-before-define': ['error', { functions: false, classes: false }],
+        'import/prefer-default-export': 0,
+        'import/no-unresolved': 0,
       },
     },
     {

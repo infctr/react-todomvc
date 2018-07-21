@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { CodeKeys } from '../constants/codeKeys';
-import { todoPropTypes } from './propTypes';
-import { Todo } from '../types/models';
+import { CodeKeys } from 'constants/codeKeys';
+import { Todo } from 'types/models';
+import { todoPropTypes } from '../propTypes';
+
+import styles from './TodoItem.module.scss';
 
 interface TodoItemProps {
   editing: boolean;
@@ -90,23 +92,24 @@ export default class TodoItem extends PureComponent<
     return (
       <li
         className={cn({
-          editing,
-          completed: todo.completed,
+          [styles.item]: true,
+          [styles.editing]: editing,
+          [styles.completed]: todo.completed,
         })}>
-        <div className="view">
+        <div className={styles.view}>
           <input
-            className="toggle"
+            className={styles.toggle}
             type="checkbox"
             checked={todo.completed}
             onChange={handleToggle}
           />
           <span onDoubleClick={this.handleEdit}>{todo.title}</span>
-          <button type="button" className="destroy" onClick={onRemove} />
+          <button type="button" className={styles.destroy} onClick={onRemove} />
         </div>
         <input
           ref={this.editFieldRef}
           type="text"
-          className="edit"
+          className={styles.edit}
           value={this.state.editText}
           onBlur={this.handleSubmit}
           onChange={this.handleChange}

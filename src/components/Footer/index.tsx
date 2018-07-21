@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import noop from 'lodash/noop';
 
-import { pluralize } from '../utils';
-import { VisibilityFilters } from '../types/models';
-import FilterLink from './FilterLink';
+import { pluralize } from 'utils';
+import { VisibilityFilters } from 'types/models';
+import FilterLink from 'components/FilterLink';
+
+import styles from './index.module.scss';
 
 export interface IProps {
   count: number;
@@ -12,7 +14,7 @@ export interface IProps {
   onClearCompleted?: () => void;
 }
 
-interface IDefaultProps {
+interface IDefaultProps extends Partial<IProps> {
   onClearCompleted: () => void;
 }
 
@@ -33,20 +35,17 @@ class Footer extends PureComponent<IProps> {
     const activeTodoWord = pluralize(count, 'item');
 
     const clearButton = completedCount > 0 && (
-      <button
-        type="button"
-        className="clear-completed"
-        onClick={onClearCompleted}>
+      <button type="button" className={styles.clear} onClick={onClearCompleted}>
         Clear completed
       </button>
     );
 
     return (
-      <footer className="footer">
-        <span className="todo-count">
+      <footer className={styles.footer}>
+        <span className={styles.count}>
           <strong>{count}</strong> {activeTodoWord} left
         </span>
-        <ul className="filters">
+        <ul className={styles.filters}>
           {Object.keys(VisibilityFilters)
             .filter(key => !Number.isNaN(Number(key)))
             .map(key => <FilterLink key={key} filter={Number(key)} />)}

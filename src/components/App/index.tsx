@@ -1,18 +1,20 @@
 import React, { Fragment } from 'react';
 
-import TodoList from './TodoList';
-import AddTodo from './AddTodo';
+import TodoList from 'components/Todos';
+import AddTodo from '../AddTodo';
+
+import styles from './index.module.scss';
 
 const App: React.SFC = () => (
   <Fragment>
-    <div className="todoapp">
-      <header className="header">
-        <h1>todos</h1>
+    <div className={styles.todoapp}>
+      <header>
+        <h1 className={styles.header}>todos</h1>
         <AddTodo />
       </header>
       <TodoList />
     </div>
-    <footer className="info">
+    <footer className={styles.info}>
       <p>Double-click to edit a todo</p>
       <p>
         Created by <a href="http://github.com/petehunt/">petehunt</a>
