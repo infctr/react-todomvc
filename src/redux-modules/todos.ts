@@ -32,11 +32,15 @@ type TodosActions = {
   clearCompleted: typeof clearCompleted;
   toggleAll: typeof toggleAll;
 };
+// type I = typeof addTodo;
 
 export type TodosAction = ActionType<TodosActions>;
 export type TodosState = ReadonlyArray<Todo>;
 
-export default function reducer(state: TodosState = [], action: TodosAction) {
+export default function reducer(
+  state: TodosState = [],
+  action: TodosAction
+): TodosState {
   switch (action.type) {
     case ADD_TODO:
       return [

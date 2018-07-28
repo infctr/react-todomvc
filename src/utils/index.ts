@@ -18,8 +18,3 @@ export const storage = (namespace: string, data?: object) => {
     return undefined;
   }
 };
-
-export const switchCase = (cases: object) => (
-  defaultCase: number | string | (() => {})
-) => (key: string) =>
-  Object.prototype.hasOwnProperty.call(cases, key) ? cases[key] : defaultCase;

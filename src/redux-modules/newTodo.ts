@@ -10,7 +10,7 @@ type NewTodoActions = ActionType<typeof setNewTodo>;
 export default function reducer(
   state: NewTodoState = '',
   action: NewTodoActions
-) {
+): NewTodoState {
   switch (action.type) {
     case SET_NEW_TODO:
       return action.payload;

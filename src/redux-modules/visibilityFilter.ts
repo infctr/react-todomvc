@@ -13,7 +13,7 @@ export type VisibilityFilterState = VisibilityFilters;
 export default function reducer(
   state: VisibilityFilterState = VisibilityFilters.SHOW_ALL,
   { type, payload }: VisibilityFilterActions
-) {
+): VisibilityFilterState {
   switch (type) {
     case SET_VISIBILITY_FILTER:
       return payload;
