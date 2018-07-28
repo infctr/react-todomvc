@@ -1,11 +1,29 @@
 # A classic TodoMVC revisited
 
-- [x] React
-- [x] Redux
-- [ ] CSS Modules
+- [x] React 16.3+
+  - CRA with `react-scripts@2.0.0` for Webpack 4 and CSS Modules
+  - [react-app-rewired](https://github.com/timarney/react-app-rewired) customize CRA without ejecting
+- [x] Redux 4.0+
+  - [ducks-modular-redux](https://github.com/erikras/ducks-modular-redux)
+  - [React-Redux-Styleguide](https://github.com/iraycd/React-Redux-Styleguide) for folder structure
+- [x] CSS Modules with SASS
 - [ ] Routing
 - [x] ESLint
+  - [typescript-eslint-parser](https://github.com/eslint/typescript-eslint-parser) with [eslint-plugin-typescript](https://github.com/nzakas/eslint-plugin-typescript) to lint `.ts` files
 - [x] Typescript
+  - [react-typescript-cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet)
+  - [react-redux-typescript-guide](https://github.com/piotrwitek/react-redux-typescript-guide)
+  - [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript) use `ts-jest` config setup
+  - [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader) a better ts loader for webpack
+  - check unused code with [ts-unused-exports](https://github.com/pzavolinsky/ts-unused-exports)
 - [x] TSLint
+- [x] Workflow
+  - [Prettier](https://github.com/prettier/prettier) for better code
+  - [Husky](https://github.com/typicode/husky) to prevent bad commits
+    - prepare-commit-msg
+    - [lint-staged](https://github.com/okonet/lint-staged)
 - [ ] Tests
+- [ ] Selectors
+- [ ] Storybook / Styleguidist
+- [ ] Async API and async redux actions
 - [ ] Material-UI
