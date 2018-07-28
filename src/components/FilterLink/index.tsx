@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import { bindActionCreators } from 'redux';
 
-import { setVisibilityFilter } from 'actions/visibilityFilter';
-import { RootState } from 'reducers';
+import { setVisibilityFilter } from 'redux-modules/visibilityFilter';
+import { RootState } from 'redux-modules';
 import { VisibilityFilters } from 'types/models';
 
 import styles from './index.module.scss';

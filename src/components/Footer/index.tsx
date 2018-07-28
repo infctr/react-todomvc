@@ -3,6 +3,7 @@ import noop from 'lodash/noop';
 
 import { pluralize } from 'utils';
 import { VisibilityFilters } from 'types/models';
+
 import FilterLink from 'components/FilterLink';
 
 import styles from './index.module.scss';

@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import cn from 'classnames';
 
-import Footer from 'components/Footer';
 import {
   toggleTodo,
   clearCompleted,
   toggleAll,
   removeTodo,
   editTodo,
-} from 'actions/todos';
-import { RootState } from 'reducers';
+} from 'redux-modules/todos';
+import { RootState } from 'redux-modules';
 import { Todo, VisibilityFilters } from 'types/models';
-import TodoItem from './TodoItem';
+
+import Footer from 'components/Footer';
+import TodoItem from 'components/Todos/TodoItem';
 
 import styles from './index.module.scss';
 

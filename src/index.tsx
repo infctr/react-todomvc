@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 
 import App from 'components/App';
-import rootReducer from 'reducers';
+import rootReducer from 'redux-modules';
 import { storage } from 'utils';
 
 import './index.css';
