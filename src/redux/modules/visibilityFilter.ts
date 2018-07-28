@@ -7,8 +7,8 @@ const SET_VISIBILITY_FILTER = 'filter/SET_VISIBILITY_FILTER';
 export const setVisibilityFilter = (filter: number) =>
   actionCreator(SET_VISIBILITY_FILTER, filter);
 
-export type VisibilityFilterActions = ActionType<typeof setVisibilityFilter>;
-export type VisibilityFilterState = VisibilityFilters;
+type VisibilityFilterActions = ActionType<typeof setVisibilityFilter>;
+type VisibilityFilterState = VisibilityFilters;
 
 export default function reducer(
   state: VisibilityFilterState = VisibilityFilters.SHOW_ALL,

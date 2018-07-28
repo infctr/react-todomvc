@@ -9,7 +9,8 @@
     "eject": "react-app-rewired eject",
     "check-updates": "npm-check -u",
     "lint": "eslint ./src/**/*",
-    "tslint": "tslint --project . --format verbose"
+    "tslint": "tslint --project . --format verbose",
+    "unused": "ts-unused-exports ./tsconfig.json $(find ./src -name '*.ts|x*')"
   },
   "husky": {
     "hooks": {

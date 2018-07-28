@@ -33,8 +33,8 @@ interface ITodosActions {
   toggleAll: typeof toggleAll;
 }
 
-export type TodosAction = ActionType<ITodosActions>;
-export type TodosState = ReadonlyArray<ITodo>;
+type TodosAction = ActionType<ITodosActions>;
+type TodosState = ReadonlyArray<ITodo>;
 
 export default function reducer(
   state: TodosState = [],
