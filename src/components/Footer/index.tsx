@@ -8,17 +8,19 @@ import FilterLink from 'components/FilterLink';
 
 import styles from './index.module.scss';
 
-export interface IProps {
+interface IDefaultProps {
+  onClearCompleted: () => void;
+}
+
+interface IProps extends Partial<IDefaultProps> {
   count: number;
   completedCount: number;
   onClearCompleted?: () => void;
 }
 
-interface IDefaultProps extends Partial<IProps> {
-  onClearCompleted: () => void;
-}
+type IPropsWithDefault = IProps & IDefaultProps;
 
-class Footer extends PureComponent<IProps> {
+class Footer extends PureComponent<IPropsWithDefault> {
   public static defaultProps: IDefaultProps = {
     onClearCompleted: noop,
   };
@@ -50,4 +52,4 @@ class Footer extends PureComponent<IProps> {
   }
 }
 
-export default Footer;
+export default Footer as React.ComponentClass<IProps>;
