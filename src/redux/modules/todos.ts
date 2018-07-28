@@ -1,7 +1,7 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 import uuid from 'uuid';
 
-import { Todo } from 'types/models';
+import { ITodo } from 'types/models';
 
 const ADD_TODO = 'todos/ADD_TODO';
 const TOGGLE_TODO = 'todos/TOGGLE_TODO';
@@ -24,18 +24,17 @@ export const clearCompleted = () => actionCreator(CLEAR_COMPLETED);
 export const toggleAll = (checked: boolean) =>
   actionCreator(TOGGLE_ALL, { checked });
 
-type TodosActions = {
+interface ITodosActions {
   addTodo: typeof addTodo;
   toggleTodo: typeof toggleTodo;
   removeTodo: typeof removeTodo;
   editTodo: typeof editTodo;
   clearCompleted: typeof clearCompleted;
   toggleAll: typeof toggleAll;
-};
-// type I = typeof addTodo;
+}
 
-export type TodosAction = ActionType<TodosActions>;
-export type TodosState = ReadonlyArray<Todo>;
+export type TodosAction = ActionType<ITodosActions>;
+export type TodosState = ReadonlyArray<ITodo>;
 
 export default function reducer(
   state: TodosState = [],

@@ -9,17 +9,17 @@ import {
   toggleAll,
   removeTodo,
   editTodo,
-} from 'redux-modules/todos';
-import { RootState } from 'redux-modules';
-import { Todo, VisibilityFilters } from 'types/models';
+} from 'redux/modules/todos';
+import { RootState } from 'redux/configureStore';
+import { ITodo, VisibilityFilters } from 'types/models';
 
 import Footer from 'components/Footer';
-import TodoItem from 'components/Todos/TodoItem';
+import TodoItem from './TodoItem';
 
 import styles from './index.module.scss';
 
 const getVisibleTodos = (
-  todos: ReadonlyArray<Todo>,
+  todos: ReadonlyArray<ITodo>,
   filter: VisibilityFilters
 ) => {
   switch (filter) {
@@ -48,7 +48,7 @@ interface IStateProps {
   activeTodoCount: number;
   allChecked: boolean;
   completedCount: number;
-  todos: ReadonlyArray<Todo>;
+  todos: ReadonlyArray<ITodo>;
 }
 
 interface IProps extends IStateProps, IDispatchProps {}

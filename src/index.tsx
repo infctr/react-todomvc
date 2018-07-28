@@ -5,12 +5,13 @@ import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 
 import App from 'components/App';
-import rootReducer from 'redux-modules';
+import rootReducer from 'redux/configureStore';
 import { storage } from 'utils';
 
 import './index.css';
 
 declare global {
+  // tslint:disable-next-line:interface-name
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION__?: any;
   }

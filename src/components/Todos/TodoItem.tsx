@@ -2,31 +2,28 @@ import React, { PureComponent } from 'react';
 import cn from 'classnames';
 
 import { CodeKeys } from 'constants/codeKeys';
-import { Todo } from 'types/models';
+import { ITodo } from 'types/models';
 
 import styles from './TodoItem.module.scss';
 
-interface TodoItemProps {
+interface IProps {
   editing: boolean;
   handleToggle: () => void;
   onCancel: () => void;
   onEdit: () => void;
   onRemove: () => void;
   onSave: (s: string) => void;
-  todo: Readonly<Todo>;
+  todo: Readonly<ITodo>;
 }
 
-interface TodoItemState {
+interface IState {
   editText: string;
 }
 
-export default class TodoItem extends PureComponent<
-  TodoItemProps,
-  TodoItemState
-> {
+export default class TodoItem extends PureComponent<IProps, IState> {
   private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
 
-  constructor(props: TodoItemProps) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -34,7 +31,7 @@ export default class TodoItem extends PureComponent<
     };
   }
 
-  public componentDidUpdate(prevProps: TodoItemProps) {
+  public componentDidUpdate(prevProps: IProps) {
     if (!prevProps.editing && this.props.editing) {
       const node = this.editFieldRef.current;
 

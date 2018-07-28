@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { addTodo } from 'redux-modules/todos';
+import { addTodo } from 'redux/modules/todos';
 import { CodeKeys } from 'constants/codeKeys';
-import { RootState } from 'redux-modules';
-import { setNewTodo } from 'redux-modules/newTodo';
+import { RootState } from 'redux/configureStore';
+import { setNewTodo } from 'redux/modules/newTodo';
 
 import styles from './index.module.scss';
 
