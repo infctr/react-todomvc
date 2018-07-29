@@ -23,7 +23,7 @@
     - prepare-commit-msg
     - [lint-staged](https://github.com/okonet/lint-staged)
 - [ ] Tests
-- [ ] Selectors
+- [x] Selectors with [reselect](https://github.com/reduxjs/reselect)
 - [ ] Storybook / Styleguidist
 - [ ] Async API and async redux actions
 - [ ] Material-UI

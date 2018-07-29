@@ -1,18 +1,22 @@
 {
   "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
-    "exclude": ["config/**/*.js", "node_modules/**/*.ts", "node_modules/**/*.js"]
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "node_modules/**/*.js"
+    ]
   },
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
+    "object-literal-sort-keys": false,
     "member-ordering": false,
     "ordered-imports": false,
     "jsx-no-lambda": false,
     "prettier": true
   },
   "jsRules": {
-    "object-literal-sort-keys": [true, "ignore-case", "shorthand-first"],
+    "object-literal-sort-keys": false,
     "ordered-imports": false
   },
   "defaultSeverity": "warning"

@@ -6,6 +6,7 @@ import { addTodo } from 'redux/modules/todos';
 import { CodeKeys } from 'constants/codeKeys';
 import { RootState } from 'redux/configureStore';
 import { setNewTodo } from 'redux/modules/newTodo';
+import { getNewTodo } from 'selectors/newTodo';
 
 import styles from './index.module.scss';
 
@@ -49,8 +50,7 @@ const AddTodo: React.SFC<IProps> = props => {
 };
 
 export default connect(
-  ({ newTodo }: RootState) => ({
-    value: newTodo,
-  }),
-  (dispatch: Dispatch) => bindActionCreators(actionCreatores, dispatch)
+  (state: RootState): IStateProps => ({ value: getNewTodo(state) }),
+  (dispatch: Dispatch): IDispatchProps =>
+    bindActionCreators(actionCreatores, dispatch)
 )(AddTodo);

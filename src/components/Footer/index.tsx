@@ -42,9 +42,9 @@ class Footer extends PureComponent<IPropsWithDefault> {
           <strong>{count}</strong> {activeTodoWord} left
         </span>
         <ul className={styles.filters}>
-          {Object.keys(VisibilityFilters)
-            .filter(key => !Number.isNaN(Number(key)))
-            .map(key => <FilterLink key={key} filter={Number(key)} />)}
+          {Object.keys(VisibilityFilters).map((filter: VisibilityFilters) => (
+            <FilterLink key={filter} filter={filter} />
+          ))}
         </ul>
         {clearButton}
       </footer>

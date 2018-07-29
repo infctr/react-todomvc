@@ -4,7 +4,7 @@ import { VisibilityFilters } from 'types/models';
 
 const SET_VISIBILITY_FILTER = 'filter/SET_VISIBILITY_FILTER';
 
-export const setVisibilityFilter = (filter: number) =>
+export const setVisibilityFilter = (filter: VisibilityFilters) =>
   actionCreator(SET_VISIBILITY_FILTER, filter);
 
 type VisibilityFilterActions = ActionType<typeof setVisibilityFilter>;

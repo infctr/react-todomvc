@@ -6,13 +6,14 @@ import { bindActionCreators } from 'redux';
 import { setVisibilityFilter } from 'redux/modules/visibilityFilter';
 import { RootState } from 'redux/configureStore';
 import { VisibilityFilters } from 'types/models';
+import { getVisibilityFilter } from 'selectors/visibilityFilter';
 
 import styles from './index.module.scss';
 
 const VisibilityFilterCaptions = {
-  [VisibilityFilters[VisibilityFilters.SHOW_ALL]]: 'All',
-  [VisibilityFilters[VisibilityFilters.SHOW_ACTIVE]]: 'Active',
-  [VisibilityFilters[VisibilityFilters.SHOW_COMPLETED]]: 'Completed',
+  [VisibilityFilters.SHOW_ALL]: 'All',
+  [VisibilityFilters.SHOW_ACTIVE]: 'Active',
+  [VisibilityFilters.SHOW_COMPLETED]: 'Completed',
 };
 
 const actionCreators = { setVisibilityFilter };
@@ -20,31 +21,38 @@ const actionCreators = { setVisibilityFilter };
 type IDispatchProps = typeof actionCreators;
 
 interface IStateProps {
-  active: boolean;
-  text: string;
+  visibilityFilter: VisibilityFilters;
 }
 
 interface IOwnProps {
-  filter: number;
+  filter: VisibilityFilters;
 }
 
-interface IProps extends IOwnProps, IStateProps, IDispatchProps {}
+type IProps = IOwnProps & IStateProps & IDispatchProps;
 
-const FilterLink: React.SFC<IProps> = ({ text, active, filter, ...props }) => (
-  <li>
-    <button
-      type="button"
-      className={cn(styles.button, active && styles.selected)}
-      onClick={() => props.setVisibilityFilter(filter)}>
-      {text}
-    </button>
-  </li>
-);
+const FilterLink: React.SFC<IProps> = ({
+  visibilityFilter,
+  filter,
+  ...props
+}) => {
+  const text = VisibilityFilterCaptions[filter];
+  const isActive = visibilityFilter === filter;
+
+  return (
+    <li>
+      <button
+        type="button"
+        className={cn(styles.button, isActive && styles.selected)}
+        onClick={() => props.setVisibilityFilter(filter)}>
+        {text}
+      </button>
+    </li>
+  );
+};
 
 export default connect(
-  ({ visibilityFilter }: RootState, ownProps: IOwnProps) => ({
-    active: ownProps.filter === visibilityFilter,
-    text: VisibilityFilterCaptions[VisibilityFilters[ownProps.filter]],
+  (state: RootState, ownProps: IOwnProps): IStateProps => ({
+    visibilityFilter: getVisibilityFilter(state),
   }),
-  dispatch => bindActionCreators(actionCreators, dispatch)
+  (dispatch): IDispatchProps => bindActionCreators(actionCreators, dispatch)
 )(FilterLink);

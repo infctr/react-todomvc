@@ -11,29 +11,18 @@ import {
   editTodo,
 } from 'redux/modules/todos';
 import { RootState } from 'redux/configureStore';
-import { ITodo, VisibilityFilters } from 'types/models';
+import { ITodo } from 'types/models';
+import {
+  getVisibleTodos,
+  getActiveTodosCount,
+  getCompletedTodosCount,
+  getAllCheckedState,
+} from 'selectors/todos';
 
 import Footer from 'components/Footer';
 import TodoItem from './TodoItem';
 
 import styles from './index.module.scss';
-
-const getVisibleTodos = (
-  todos: ReadonlyArray<ITodo>,
-  filter: VisibilityFilters
-) => {
-  switch (filter) {
-    case VisibilityFilters.SHOW_COMPLETED:
-      return todos.filter(todo => todo.completed);
-
-    case VisibilityFilters.SHOW_ACTIVE:
-      return todos.filter(todo => !todo.completed);
-
-    case VisibilityFilters.SHOW_ALL:
-    default:
-      return todos;
-  }
-};
 
 const actionCreators = {
   clearCompleted,
@@ -51,7 +40,7 @@ interface IStateProps {
   todos: ReadonlyArray<ITodo>;
 }
 
-interface IProps extends IStateProps, IDispatchProps {}
+type IProps = IStateProps & IDispatchProps;
 
 interface IState {
   editing: string | null;
@@ -119,20 +108,12 @@ class TodoList extends PureComponent<IProps, IState> {
 }
 
 export default connect(
-  ({ todos, visibilityFilter }: RootState) => {
-    const activeTodoCount = todos.reduce(
-      (accum, todo) => (todo.completed ? accum : accum + 1),
-      0
-    );
-    const completedCount = todos.length - activeTodoCount;
-
-    return {
-      activeTodoCount,
-      completedCount,
-      allChecked: todos.length === completedCount,
-      todos: getVisibleTodos(todos, visibilityFilter),
-    };
-  },
-
-  (dispatch: Dispatch) => bindActionCreators(actionCreators, dispatch)
+  (state: RootState): IStateProps => ({
+    activeTodoCount: getActiveTodosCount(state),
+    completedCount: getCompletedTodosCount(state),
+    allChecked: getAllCheckedState(state),
+    todos: getVisibleTodos(state),
+  }),
+  (dispatch: Dispatch): IDispatchProps =>
+    bindActionCreators(actionCreators, dispatch)
 )(TodoList);
