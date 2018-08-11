@@ -2,6 +2,7 @@ import { action as actionCreator, ActionType } from 'typesafe-actions';
 import uuid from 'uuid';
 
 import { ITodo } from 'types/models';
+import { switchCase } from 'utils';
 
 const ADD_TODO = 'todos/ADD_TODO';
 const TOGGLE_TODO = 'todos/TOGGLE_TODO';
@@ -19,7 +20,7 @@ export const removeTodo = (id: string) => actionCreator(REMOVE_TODO, { id });
 export const editTodo = (id: string, title: string) =>
   actionCreator(EDIT_TODO, { id, title });
 
-export const clearCompleted = () => actionCreator(CLEAR_COMPLETED);
+export const clearCompleted = () => actionCreator(CLEAR_COMPLETED, null);
 
 export const toggleAll = (checked: boolean) =>
   actionCreator(TOGGLE_ALL, { checked });
@@ -33,53 +34,47 @@ interface ITodosActions {
   toggleAll: typeof toggleAll;
 }
 
-type TodosAction = ActionType<ITodosActions>;
-type TodosState = ReadonlyArray<ITodo>;
+type ITodosAction = ActionType<ITodosActions>;
+type ITodosState = ReadonlyArray<ITodo>;
 
-export default function reducer(
-  state: TodosState = [],
-  action: TodosAction
-): TodosState {
-  switch (action.type) {
-    case ADD_TODO:
-      return [
-        ...state,
-        {
-          completed: false,
-          id: uuid.v4(),
-          title: action.payload.title,
-        },
-      ];
+export default function todos(
+  state: ITodosState = [],
+  action: ITodosAction
+): ITodosState {
+  const reducer = switchCase<ITodosAction, ITodosState>({
+    [ADD_TODO]: payload => [
+      ...state,
+      {
+        completed: false,
+        id: uuid.v4(),
+        title: payload.title,
+      },
+    ],
 
-    case TOGGLE_TODO:
-      return state.map(
+    [TOGGLE_TODO]: payload =>
+      state.map(
         todo =>
-          todo.id === action.payload.id
+          todo.id === payload.id
             ? { ...todo, completed: !todo.completed }
             : todo
-      );
+      ),
 
-    case REMOVE_TODO:
-      return state.filter(todo => todo.id !== action.payload.id);
+    [REMOVE_TODO]: payload => state.filter(todo => todo.id !== payload.id),
 
-    case TOGGLE_ALL:
-      return state.map(todo => ({
+    [TOGGLE_ALL]: payload =>
+      state.map(todo => ({
         ...todo,
-        completed: action.payload.checked,
-      }));
+        completed: payload.checked,
+      })),
 
-    case EDIT_TODO:
-      return state.map(
+    [EDIT_TODO]: payload =>
+      state.map(
         todo =>
-          todo.id === action.payload.id
-            ? { ...todo, title: action.payload.title }
-            : todo
-      );
+          todo.id === payload.id ? { ...todo, title: payload.title } : todo
+      ),
 
-    case CLEAR_COMPLETED:
-      return state.filter(todo => !todo.completed);
+    [CLEAR_COMPLETED]: () => state.filter(todo => !todo.completed),
+  })(() => state);
 
-    default:
-      return state;
-  }
+  return reducer(action.type)(action.payload);
 }

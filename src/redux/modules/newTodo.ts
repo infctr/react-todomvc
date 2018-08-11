@@ -1,21 +1,21 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 
+import { switchCase } from 'utils';
+
 const SET_NEW_TODO = 'new_todo/SET_NEW_TODO';
 
 export const setNewTodo = (title: string) => actionCreator(SET_NEW_TODO, title);
 
-type NewTodoState = string;
-type NewTodoActions = ActionType<typeof setNewTodo>;
+type INewTodoState = string;
+type INewTodoActions = ActionType<typeof setNewTodo>;
 
-export default function reducer(
-  state: NewTodoState = '',
-  action: NewTodoActions
-): NewTodoState {
-  switch (action.type) {
-    case SET_NEW_TODO:
-      return action.payload;
+export default function newTodo(
+  state: INewTodoState = '',
+  action: INewTodoActions
+): INewTodoState {
+  const reducer = switchCase<INewTodoActions, INewTodoState>({
+    [SET_NEW_TODO]: payload => payload,
+  })(() => state);
 
-    default:
-      return state;
-  }
+  return reducer(action.type)(action.payload);
 }

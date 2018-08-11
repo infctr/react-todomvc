@@ -1,24 +1,23 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 
 import { VisibilityFilters } from 'types/models';
+import { switchCase } from 'utils';
 
 const SET_VISIBILITY_FILTER = 'filter/SET_VISIBILITY_FILTER';
 
 export const setVisibilityFilter = (filter: VisibilityFilters) =>
   actionCreator(SET_VISIBILITY_FILTER, filter);
 
-type VisibilityFilterActions = ActionType<typeof setVisibilityFilter>;
-type VisibilityFilterState = VisibilityFilters;
+type IVisibilityFilterActions = ActionType<typeof setVisibilityFilter>;
+type IVisibilityFilterState = VisibilityFilters;
 
-export default function reducer(
-  state: VisibilityFilterState = VisibilityFilters.SHOW_ALL,
-  { type, payload }: VisibilityFilterActions
-): VisibilityFilterState {
-  switch (type) {
-    case SET_VISIBILITY_FILTER:
-      return payload;
+export default function visibilityFilter(
+  state: IVisibilityFilterState = VisibilityFilters.SHOW_ALL,
+  action: IVisibilityFilterActions
+): IVisibilityFilterState {
+  const reducer = switchCase<IVisibilityFilterActions, IVisibilityFilterState>({
+    [SET_VISIBILITY_FILTER]: payload => payload,
+  })(() => state);
 
-    default:
-      return state;
-  }
+  return reducer(action.type)(action.payload);
 }
