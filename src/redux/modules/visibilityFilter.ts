@@ -16,7 +16,7 @@ export default function visibilityFilter(
   action: IVisibilityFilterActions
 ): IVisibilityFilterState {
   const reducer = switchCase<IVisibilityFilterActions, IVisibilityFilterState>({
-    [SET_VISIBILITY_FILTER]: payload => payload,
+    [SET_VISIBILITY_FILTER]: (payload): IVisibilityFilterState => payload,
   })(() => state);
 
   return reducer(action.type)(action.payload);

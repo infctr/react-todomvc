@@ -30,11 +30,11 @@ type ICases<A extends IAction, State> = {
   [T in A['type']]: (payload: IPayload<A, T>) => State
 };
 
-export const switchCase = <A extends IAction, TState>(
-  cases: ICases<A, TState>
-) => <D extends (payload: any) => TState>(defaultCase: D) => {
-  function getCase<K extends string>(key: K): (arg: IPayload<A, K>) => TState;
-  function getCase<K extends string>(key: K): ICases<A, TState>[K] | D {
+export const switchCase = <A extends IAction, State>(
+  cases: ICases<A, State>
+) => <D extends (payload: any) => State>(defaultCase: D) => {
+  function getCase<K extends string>(key: K): (arg: IPayload<A, K>) => State;
+  function getCase<K extends string>(key: K): ICases<A, State>[K] | D {
     return Object.prototype.hasOwnProperty.call(cases, key)
       ? cases[key]
       : defaultCase;

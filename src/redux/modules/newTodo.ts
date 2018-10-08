@@ -14,7 +14,7 @@ export default function newTodo(
   action: INewTodoActions
 ): INewTodoState {
   const reducer = switchCase<INewTodoActions, INewTodoState>({
-    [SET_NEW_TODO]: payload => payload,
+    [SET_NEW_TODO]: (payload): INewTodoState => payload,
   })(() => state);
 
   return reducer(action.type)(action.payload);

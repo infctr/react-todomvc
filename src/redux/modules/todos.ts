@@ -42,7 +42,7 @@ export default function todos(
   action: ITodosAction
 ): ITodosState {
   const reducer = switchCase<ITodosAction, ITodosState>({
-    [ADD_TODO]: payload => [
+    [ADD_TODO]: (payload): ITodosState => [
       ...state,
       {
         completed: false,
@@ -51,7 +51,7 @@ export default function todos(
       },
     ],
 
-    [TOGGLE_TODO]: payload =>
+    [TOGGLE_TODO]: (payload): ITodosState =>
       state.map(
         todo =>
           todo.id === payload.id
@@ -59,21 +59,22 @@ export default function todos(
             : todo
       ),
 
-    [REMOVE_TODO]: payload => state.filter(todo => todo.id !== payload.id),
+    [REMOVE_TODO]: (payload): ITodosState =>
+      state.filter(todo => todo.id !== payload.id),
 
-    [TOGGLE_ALL]: payload =>
+    [TOGGLE_ALL]: (payload): ITodosState =>
       state.map(todo => ({
         ...todo,
         completed: payload.checked,
       })),
 
-    [EDIT_TODO]: payload =>
+    [EDIT_TODO]: (payload): ITodosState =>
       state.map(
         todo =>
           todo.id === payload.id ? { ...todo, title: payload.title } : todo
       ),
 
-    [CLEAR_COMPLETED]: () => state.filter(todo => !todo.completed),
+    [CLEAR_COMPLETED]: (): ITodosState => state.filter(todo => !todo.completed),
   })(() => state);
 
   return reducer(action.type)(action.payload);
