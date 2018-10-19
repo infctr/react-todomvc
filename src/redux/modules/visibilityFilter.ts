@@ -1,7 +1,7 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 
 import { VisibilityFilters } from 'types/models';
-import { switchCase } from 'utils';
+import { switchCase } from 'utils/switcCase';
 
 const SET_VISIBILITY_FILTER = 'filter/SET_VISIBILITY_FILTER';
 

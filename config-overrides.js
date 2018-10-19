@@ -13,16 +13,21 @@ module.exports = {
   },
 
   jest: config => {
-    if (!config.coveragePathIgnorePatterns) {
-      // eslint-disable-next-line no-param-reassign
-      config.coveragePathIgnorePatterns = [];
-    }
-
     // eslint-disable-next-line no-param-reassign
     config.coveragePathIgnorePatterns = [
-      ...config.coveragePathIgnorePatterns,
+      ...(config.coveragePathIgnorePatterns || []),
       '<rootDir>/src/.*.d.ts',
     ];
+
+    // eslint-disable-next-line no-param-reassign
+    config.moduleNameMapper = {
+      '\\.module\\.scss$': 'identity-obj-proxy',
+    };
+
+    // eslint-disable-next-line no-param-reassign
+    config.snapshotSerializers = ['enzyme-to-json/serializer'];
+    // eslint-disable-next-line no-param-reassign
+    config.setupFiles = [...config.setupFiles, '<rootDir>/src/setupTests.js'];
 
     return config;
   },

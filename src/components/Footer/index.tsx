@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import noop from 'lodash/noop';
 
-import { pluralize } from 'utils';
+import { pluralize } from 'utils/pluralize';
 import { VisibilityFilters } from 'types/models';
 
 import FilterLink from 'components/FilterLink';

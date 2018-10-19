@@ -1,6 +1,6 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 
-import { switchCase } from 'utils';
+import { switchCase } from 'utils/switcCase';
 
 const SET_NEW_TODO = 'new_todo/SET_NEW_TODO';
 

@@ -70,7 +70,7 @@ module.exports = {
       },
     },
     {
-      files: ['config-overrides.js'],
+      files: ['config-overrides.js', 'src/setupTests.js', '**/*.test.{ts,tsx}'],
       rules: {
         'import/no-extraneous-dependencies': 0,
       },

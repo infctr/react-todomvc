@@ -6,7 +6,7 @@ import throttle from 'lodash/throttle';
 
 import App from 'components/App';
 import rootReducer from 'redux/configureStore';
-import { storage } from 'utils';
+import { storage } from 'utils/storage';
 
 import './index.css';
 
