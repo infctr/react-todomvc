@@ -1,8 +1,8 @@
 import { action as actionCreator, ActionType } from 'typesafe-actions';
 import uuid from 'uuid';
 
-import { ITodo } from 'types/models';
-import { switchCase } from 'utils/switcCase';
+import { ITodo } from '../../types/models';
+import { switchCase } from '../../utils/switcCase';
 
 const ADD_TODO = 'todos/ADD_TODO';
 const TOGGLE_TODO = 'todos/TOGGLE_TODO';

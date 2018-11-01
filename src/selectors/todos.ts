@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from 'redux/configureStore';
-import { VisibilityFilters } from 'types/models';
-import { getVisibilityFilter } from 'selectors/visibilityFilter';
+import { RootState } from '../redux/configureStore';
+import { VisibilityFilters } from '../types/models';
+import { getVisibilityFilter } from './visibilityFilter';
 
 const getTodos = (state: RootState) => state.todos;
 

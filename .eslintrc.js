@@ -60,7 +60,6 @@ module.exports = {
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
-      parser: 'typescript-eslint-parser',
       rules: {
         'no-undef': [0],
         'no-unused-vars': [0],
@@ -73,6 +72,12 @@ module.exports = {
       files: ['config-overrides.js', 'src/setupTests.js', '**/*.test.{ts,tsx}'],
       rules: {
         'import/no-extraneous-dependencies': 0,
+      },
+    },
+    {
+      files: ['**/*.d.ts'],
+      rules: {
+        'spaced-comment': 0,
       },
     },
   ],

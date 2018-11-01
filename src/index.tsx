@@ -4,9 +4,9 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
 
-import App from 'components/App';
-import rootReducer from 'redux/configureStore';
-import { storage } from 'utils/storage';
+import App from './components/App';
+import rootReducer from './redux/configureStore';
+import { storage } from './utils/storage';
 
 import './index.css';
 

@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import noop from 'lodash/noop';
 
-import { pluralize } from 'utils/pluralize';
-import { VisibilityFilters } from 'types/models';
+import { pluralize } from '../../utils/pluralize';
+import { VisibilityFilters } from '../../types/models';
 
-import FilterLink from 'components/FilterLink';
+import FilterLink from '../FilterLink';
 
 import styles from './index.module.scss';
 
@@ -42,8 +42,8 @@ class Footer extends PureComponent<IPropsWithDefault> {
           <strong>{count}</strong> {activeTodoWord} left
         </span>
         <ul className={styles.filters}>
-          {Object.keys(VisibilityFilters).map((filter: VisibilityFilters) => (
-            <FilterLink key={filter} filter={filter} />
+          {Object.keys(VisibilityFilters).map(filter => (
+            <FilterLink key={filter} filter={filter as VisibilityFilters} />
           ))}
         </ul>
         {clearButton}

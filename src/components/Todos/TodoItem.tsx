@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import cn from 'classnames';
 
-import { CodeKeys } from 'constants/codeKeys';
-import { ITodo } from 'types/models';
+import { CodeKeys } from '../../constants/codeKeys';
+import { ITodo } from '../../types/models';
 
 import styles from './TodoItem.module.scss';
 

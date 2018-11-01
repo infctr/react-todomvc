@@ -9,17 +9,17 @@ import {
   toggleAll,
   removeTodo,
   editTodo,
-} from 'redux/modules/todos';
-import { RootState } from 'redux/configureStore';
-import { ITodo } from 'types/models';
+} from '../../redux/modules/todos';
+import { RootState } from '../../redux/configureStore';
+import { ITodo } from '../../types/models';
 import {
   getVisibleTodos,
   getActiveTodosCount,
   getCompletedTodosCount,
   getAllCheckedState,
-} from 'selectors/todos';
+} from '../../selectors/todos';
 
-import Footer from 'components/Footer';
+import Footer from '../Footer';
 import TodoItem from './TodoItem';
 
 import styles from './index.module.scss';

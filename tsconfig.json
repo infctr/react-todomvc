@@ -2,12 +2,17 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "jsx": "preserve",
-    "lib": ["es5", "es6", "es7", "esnext", "dom"],
+    "lib": [
+      "es5",
+      "es6",
+      "es7",
+      "esnext",
+      "dom"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -20,11 +25,15 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "target": "esnext",
-    "paths": {
-      "*": ["src/*", "src/typings/*"]
-    }
+    "skipLibCheck": false,
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules",
     "build",

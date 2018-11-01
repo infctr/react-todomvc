@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { GetComponentProps } from 'utils/types';
+import { GetComponentProps } from '../../utils/types';
 
 import Footer from './index';
 
