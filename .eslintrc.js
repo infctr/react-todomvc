@@ -14,8 +14,9 @@ module.exports = {
     'prettier/standard',
     'plugin:prettier/recommended',
     'plugin:jest/recommended',
+    // 'plugin:fp/recommended',
   ],
-  plugins: ['types', 'prettier', 'jest', 'typescript'],
+  plugins: ['prettier', 'jest', 'typescript' /* 'fp' */],
 
   parserOptions: {
     ecmaFeatures: {

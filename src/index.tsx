@@ -3,10 +3,10 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import throttle from 'lodash/throttle';
+import ls from 'localStorage';
 
 import App from './components/App';
 import rootReducer from './redux/configureStore';
-import { storage } from './utils/storage';
 
 import './index.css';
 
@@ -18,7 +18,7 @@ declare global {
 }
 
 const storageKey = 'react-todomvc';
-const persistedState = storage(storageKey);
+const persistedState = ls.getItem(storageKey);
 const store = createStore(
   rootReducer,
   persistedState,
@@ -27,12 +27,14 @@ const store = createStore(
 );
 
 store.subscribe(
-  throttle(() => {
-    storage(storageKey, {
-      newTodo: store.getState().newTodo,
-      todos: store.getState().todos,
-    });
-  }, 1000)
+  throttle(
+    () =>
+      ls.setItem(storageKey, {
+        newTodo: store.getState().newTodo,
+        todos: store.getState().todos,
+      }),
+    1000
+  )
 );
 
 render(
