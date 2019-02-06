@@ -37,18 +37,18 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.4",
-    "@types/enzyme": "^3.1.14",
-    "@types/jest": "^23.3.1",
-    "@types/lodash": "^4.14.112",
-    "@types/node": "^10.5.2",
-    "@types/prop-types": "^15.5.3",
-    "@types/react": "^16.4.6",
-    "@types/react-dom": "^16.0.6",
-    "@types/react-redux": "^6.0.4",
-    "@types/react-test-renderer": "^16.0.3",
+    "@types/classnames": "^2.2.7",
+    "@types/enzyme": "^3.1.16",
+    "@types/jest": "^24.0.0",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^10.12.21",
+    "@types/prop-types": "^15.5.8",
+    "@types/react": "^16.8.2",
+    "@types/react-dom": "^16.8.0",
+    "@types/react-redux": "^7.0.1",
+    "@types/react-test-renderer": "^16.8.0",
     "@types/reselect": "^2.2.0",
-    "@types/uuid": "^3.4.3",
+    "@types/uuid": "^3.4.4",
     "@typescript-eslint/eslint-plugin": "^1.2.0",
     "@typescript-eslint/parser": "^1.2.0",
     "chalk": "^2.4.1",
@@ -79,7 +79,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
     "tslint-react": "^3.6.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.3.1"
   },
   "resolutions": {
     "**/ts-jest": "23.1.3",
