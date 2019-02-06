@@ -1,5 +1,5 @@
 module.exports = {
-  parser: 'typescript-eslint-parser',
+  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
     commonjs: true,
@@ -16,13 +16,12 @@ module.exports = {
     'plugin:jest/recommended',
     // 'plugin:fp/recommended',
   ],
-  plugins: ['prettier', 'jest', 'typescript' /* 'fp' */],
+  plugins: ['prettier', 'jest', '@typescript-eslint' /* 'fp' */],
 
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    sourceType: 'module',
   },
 
   rules: {
@@ -47,7 +46,7 @@ module.exports = {
     'react/jsx-filename-extension': [0],
     'react/jsx-one-expression-per-line': [0], // airbnb 17.0
 
-    'typescript/no-unused-vars': [2],
+    '@typescript-eslint/no-unused-vars': [2],
   },
 
   settings: {
