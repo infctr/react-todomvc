@@ -4,9 +4,9 @@ import noop from 'lodash/noop';
 import { pluralize } from '../../utils/pluralize';
 import { VisibilityFilters } from '../../types/models';
 
-import FilterLink from '../FilterLink';
+import { FilterLink } from '../FilterLink';
 
-import styles from './index.module.scss';
+import styles from './Footer.module.scss';
 
 interface IDefaultProps {
   onClearCompleted: () => void;

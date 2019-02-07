@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-import TodoList from '../Todos';
-import AddTodo from '../AddTodo';
+import { TodoList } from '../TodoList';
+import { AddTodo } from '../AddTodo';
 
-import styles from './index.module.scss';
+import styles from './App.module.scss';
 
 const App: React.SFC = () => (
-  <Fragment>
+  <>
     <div className={styles.todoapp}>
       <header>
         <h1 className={styles.header}>todos</h1>
@@ -26,7 +26,7 @@ const App: React.SFC = () => (
         Forked by <a href="https://github.com/infctr">infctr</a>
       </p>
     </footer>
-  </Fragment>
+  </>
 );
 
 export default App;

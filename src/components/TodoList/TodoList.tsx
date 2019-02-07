@@ -1,6 +1,6 @@
-import React, { Fragment, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators } from 'redux';
 import cn from 'classnames';
 
 import {
@@ -19,10 +19,10 @@ import {
   getAllCheckedState,
 } from '../../selectors/todos';
 
-import Footer from '../Footer';
-import TodoItem from './TodoItem';
+import { Footer } from '../Footer';
+import { TodoItem } from '../TodoItem';
 
-import styles from './index.module.scss';
+import styles from './TodoList.module.scss';
 
 const actionCreators = {
   clearCompleted,
@@ -99,21 +99,21 @@ class TodoList extends PureComponent<IProps, IState> {
     );
 
     return (
-      <Fragment>
+      <>
         {main}
         {footer}
-      </Fragment>
+      </>
     );
   }
 }
 
-export default connect(
-  (state: RootState): IStateProps => ({
+export default connect<IStateProps, IDispatchProps, void, RootState>(
+  state => ({
     activeTodoCount: getActiveTodosCount(state),
     completedCount: getCompletedTodosCount(state),
     allChecked: getAllCheckedState(state),
     todos: getVisibleTodos(state),
   }),
-  (dispatch: Dispatch): IDispatchProps =>
-    bindActionCreators(actionCreators, dispatch)
+
+  dispatch => bindActionCreators(actionCreators, dispatch)
 )(TodoList);

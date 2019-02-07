@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import { CodeKeys } from '../../constants/codeKeys';
 import { addTodo } from '../../redux/modules/todos';
@@ -8,14 +8,14 @@ import { RootState } from '../../redux/configureStore';
 import { setNewTodo } from '../../redux/modules/newTodo';
 import { getNewTodo } from '../../selectors/newTodo';
 
-import styles from './index.module.scss';
+import styles from './AddTodo.module.scss';
 
-const actionCreatores = { setNewTodo, addTodo };
+const actionCreators = { setNewTodo, addTodo };
 
 interface IStateProps {
   value: string;
 }
-type IDispatchProps = typeof actionCreatores;
+type IDispatchProps = typeof actionCreators;
 
 interface IProps extends IStateProps, IDispatchProps {}
 
@@ -49,8 +49,7 @@ const AddTodo: React.SFC<IProps> = props => {
   );
 };
 
-export default connect(
-  (state: RootState): IStateProps => ({ value: getNewTodo(state) }),
-  (dispatch: Dispatch): IDispatchProps =>
-    bindActionCreators(actionCreatores, dispatch)
+export default connect<IStateProps, IDispatchProps, void, RootState>(
+  state => ({ value: getNewTodo(state) }),
+  dispatch => bindActionCreators(actionCreators, dispatch)
 )(AddTodo);

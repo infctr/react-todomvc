@@ -8,7 +8,7 @@ import { RootState } from '../../redux/configureStore';
 import { VisibilityFilters } from '../../types/models';
 import { getVisibilityFilter } from '../../selectors/visibilityFilter';
 
-import styles from './index.module.scss';
+import styles from './FilterLink.module.scss';
 
 const VisibilityFilterCaptions = {
   [VisibilityFilters.SHOW_ALL]: 'All',
@@ -50,9 +50,9 @@ const FilterLink: React.SFC<IProps> = ({
   );
 };
 
-export default connect(
-  (state: RootState, ownProps: IOwnProps): IStateProps => ({
+export default connect<IStateProps, IDispatchProps, IOwnProps, RootState>(
+  state => ({
     visibilityFilter: getVisibilityFilter(state),
   }),
-  (dispatch): IDispatchProps => bindActionCreators(actionCreators, dispatch)
+  dispatch => bindActionCreators(actionCreators, dispatch)
 )(FilterLink);
