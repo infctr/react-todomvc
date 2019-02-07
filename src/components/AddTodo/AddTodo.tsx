@@ -25,8 +25,6 @@ const AddTodo: React.SFC<IProps> = props => {
       return;
     }
 
-    event.preventDefault();
-
     const val = event.currentTarget.value.trim();
 
     if (val) {

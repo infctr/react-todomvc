@@ -18,7 +18,14 @@ declare global {
 }
 
 const storageKey = 'react-todomvc';
-const persistedState = ls.getItem(storageKey);
+let persistedState;
+
+try {
+  persistedState = JSON.parse(ls.getItem(storageKey)) || undefined;
+} catch (error) {
+  persistedState = undefined;
+}
+
 const store = createStore(
   rootReducer,
   persistedState,
@@ -27,14 +34,15 @@ const store = createStore(
 );
 
 store.subscribe(
-  throttle(
-    () =>
-      ls.setItem(storageKey, {
+  throttle(() => {
+    ls.setItem(
+      storageKey,
+      JSON.stringify({
         newTodo: store.getState().newTodo,
         todos: store.getState().todos,
-      }),
-    1000
-  )
+      })
+    );
+  }, 1000)
 );
 
 render(
