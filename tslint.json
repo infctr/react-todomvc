@@ -1,5 +1,4 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -7,14 +6,13 @@
       "node_modules/**/*.js"
     ]
   },
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "interface-name": true,
     "object-literal-sort-keys": false,
     "member-ordering": false,
     "ordered-imports": false,
-    "jsx-no-lambda": false,
-    "prettier": true
+    "jsx-no-lambda": false
   },
   "jsRules": {
     "object-literal-sort-keys": false,

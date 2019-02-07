@@ -23,8 +23,10 @@ export const getVisibleTodos = createSelector(
   }
 );
 
-export const getActiveTodosCount = createSelector([getTodos], todos =>
-  todos.reduce((accum, todo) => (todo.completed ? accum : accum + 1), 0)
+export const getActiveTodosCount = createSelector(
+  [getTodos],
+  todos =>
+    todos.reduce((accum, todo) => (todo.completed ? accum : accum + 1), 0)
 );
 
 export const getCompletedTodosCount = createSelector(

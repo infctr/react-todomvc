@@ -52,11 +52,8 @@ export default function todos(
     ],
 
     [TOGGLE_TODO]: (payload): ITodosState =>
-      state.map(
-        todo =>
-          todo.id === payload.id
-            ? { ...todo, completed: !todo.completed }
-            : todo
+      state.map(todo =>
+        todo.id === payload.id ? { ...todo, completed: !todo.completed } : todo
       ),
 
     [REMOVE_TODO]: (payload): ITodosState =>
@@ -69,9 +66,8 @@ export default function todos(
       })),
 
     [EDIT_TODO]: (payload): ITodosState =>
-      state.map(
-        todo =>
-          todo.id === payload.id ? { ...todo, title: payload.title } : todo
+      state.map(todo =>
+        todo.id === payload.id ? { ...todo, title: payload.title } : todo
       ),
 
     [CLEAR_COMPLETED]: (): ITodosState => state.filter(todo => !todo.completed),
