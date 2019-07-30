@@ -14,9 +14,8 @@ module.exports = {
     'prettier/standard',
     'plugin:prettier/recommended',
     'plugin:jest/recommended',
-    // 'plugin:fp/recommended',
   ],
-  plugins: ['prettier', 'jest', '@typescript-eslint' /* 'fp' */],
+  plugins: ['prettier', 'jest', '@typescript-eslint'],
 
   parserOptions: {
     ecmaFeatures: {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import cn from 'classnames';
 import { bindActionCreators } from 'redux';
 
-import { setVisibilityFilter } from '../../redux/modules/visibilityFilter';
+import * as visibilityFilter from '../../redux/modules/visibilityFilter';
 import { RootState } from '../../redux/configureStore';
 import { VisibilityFilters } from '../../types/models';
 import { getVisibilityFilter } from '../../selectors/visibilityFilter';
@@ -16,12 +16,14 @@ const VisibilityFilterCaptions = {
   [VisibilityFilters.SHOW_COMPLETED]: 'Completed',
 };
 
-const actionCreators = { setVisibilityFilter };
+const actionCreators = {
+  setVisibilityFilter: visibilityFilter.setVisibilityFilter,
+};
 
 type IDispatchProps = typeof actionCreators;
 
 interface IStateProps {
-  visibilityFilter: VisibilityFilters;
+  isActive: boolean;
 }
 
 interface IOwnProps {
@@ -31,19 +33,18 @@ interface IOwnProps {
 type IProps = IOwnProps & IStateProps & IDispatchProps;
 
 const FilterLink: React.SFC<IProps> = ({
-  visibilityFilter,
+  isActive,
   filter,
-  ...props
+  setVisibilityFilter,
 }) => {
   const text = VisibilityFilterCaptions[filter];
-  const isActive = visibilityFilter === filter;
 
   return (
     <li>
       <button
         type="button"
         className={cn(styles.button, isActive && styles.selected)}
-        onClick={() => props.setVisibilityFilter(filter)}>
+        onClick={() => setVisibilityFilter(filter)}>
         {text}
       </button>
     </li>
@@ -51,8 +52,8 @@ const FilterLink: React.SFC<IProps> = ({
 };
 
 export default connect<IStateProps, IDispatchProps, IOwnProps, RootState>(
-  state => ({
-    visibilityFilter: getVisibilityFilter(state),
+  (state, ownProps) => ({
+    isActive: getVisibilityFilter(state) === ownProps.filter,
   }),
   dispatch => bindActionCreators(actionCreators, dispatch)
 )(FilterLink);

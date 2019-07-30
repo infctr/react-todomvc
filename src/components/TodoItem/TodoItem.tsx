@@ -21,7 +21,7 @@ interface IState {
 }
 
 export default class TodoItem extends PureComponent<IProps, IState> {
-  private editFieldRef: React.RefObject<HTMLInputElement> = React.createRef();
+  private editFieldRef = React.createRef<HTMLInputElement>();
 
   constructor(props: IProps) {
     super(props);
